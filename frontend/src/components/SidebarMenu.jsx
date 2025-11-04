@@ -99,7 +99,7 @@ const SidebarMenu = ({
   // Se fechado, renderiza versão compacta
   if (!isOpen) {
     return (
-      <div className={`bg-white border-r-2 border-brown-100 flex flex-col gap-48 h-screen items-start ${width} ${className}`}>
+      <div className={`bg-white border-r-2 border-brown-100 flex flex-col gap-48 h-screen items-start overflow-y-auto ${width} ${className}`}>
         {/* Header */}
         <div className="flex gap-8 items-center justify-center pb-12 pt-48 px-16 w-full">
           <button
@@ -151,15 +151,20 @@ const SidebarMenu = ({
 
   // Versão aberta
   return (
-    <div className={`bg-white border-r-2 border-brown-100 flex flex-col gap-48 h-screen items-start ${width} ${className}`}>
+    <div className={`bg-white border-r-2 border-brown-100 flex flex-col gap-48 h-screen items-start overflow-y-auto ${width} ${className}`}>
       {/* Header */}
       <div className="flex gap-8 items-center pb-12 pt-48 px-32 w-full">
         <div className="flex gap-8 grow items-start">
-          <img 
-            src={cumeLogo} 
-            alt="CUME Logo"
-            className="h-24 shrink-0"
-          />
+          <button
+            onClick={() => onMenuItemClick?.('Página inicial')}
+            className="cursor-pointer hover:opacity-80 transition-opacity"
+          >
+            <img 
+              src={cumeLogo} 
+              alt="CUME Logo"
+              className="h-24 shrink-0"
+            />
+          </button>
         </div>
         <button
           onClick={onToggle}
@@ -206,15 +211,19 @@ const SidebarMenu = ({
           <div className="flex gap-4 items-center">
             <button
               onClick={onSettings}
-              className="flex items-center justify-center rounded-8 shrink-0 size-40 hover:bg-amber-50 transition-colors"
+              className={`flex items-center justify-center rounded-8 shrink-0 size-40 transition-colors ${
+                activeItem === 'Configurações' 
+                  ? 'bg-amber-100 hover:bg-amber-100' 
+                  : 'hover:bg-amber-50'
+              }`}
             >
-              <i className="fas fa-cog text-brown-900 text-[16px]" />
+              <i className="fas fa-gear text-brown-900 text-[16px]" />
             </button>
             <button
               onClick={onLogout}
               className="flex items-center justify-center rounded-8 shrink-0 size-40 hover:bg-amber-50 transition-colors"
             >
-              <i className="fas fa-sign-out-alt text-brown-900 text-[16px]" />
+              <i className="fas fa-sign-out-alt text-red-600 text-[16px]" />
             </button>
           </div>
         </div>

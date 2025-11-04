@@ -1,61 +1,16 @@
-import { useState } from 'react';
 import ButtonOptions from '../components/ButtonOptions';
 import Button from '../components/Button';
 import ButtonMenu from '../components/ButtonMenu';
-import SidebarMenu from '../components/SidebarMenu';
 
 function HomePage() {
-  const [menuOpen, setMenuOpen] = useState(true);
-  const [userRole, setUserRole] = useState("user"); // "user", "member", "admin"
-  const [activeItem, setActiveItem] = useState("Página inicial");
-
-  const user = {
-    name: "Gabriel Filho",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
-  };
-
-  const handleMenuItemClick = (itemName) => {
-    setActiveItem(itemName);
-    console.log(`Navegar para: ${itemName}`);
-  };
-
   return (
-    <div className="min-h-screen bg-white flex">
-      {/* Sidebar Menu */}
-      <SidebarMenu
-        type={menuOpen ? "open" : "close"}
-        role={userRole}
-        activeItem={activeItem}
-        user={user}
-        onToggle={() => setMenuOpen(!menuOpen)}
-        onSettings={() => console.log('Abrir configurações')}
-        onLogout={() => console.log('Fazer logout')}
-        onMenuItemClick={handleMenuItemClick}
-      />
-
-      {/* Main Content */}
-      <div className="flex-1 min-h-screen bg-white">
+    <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="bg-white border-b border-brown-100">
         <div className="max-w-7xl mx-auto px-16 py-12">
-          <div className="flex items-center justify-between">
-            <h1 className="text-title-h1 text-brown-900">
-              CUME App
-            </h1>
-            {/* Seletor de Role para demonstração */}
-            <div className="flex gap-8 items-center">
-              <span className="text-body-md-medium text-brown-700">Role:</span>
-              <select 
-                value={userRole} 
-                onChange={(e) => setUserRole(e.target.value)}
-                className="text-body-md-medium text-brown-900 px-12 py-4 rounded-8 border border-brown-300 bg-white"
-              >
-                <option value="user">User</option>
-                <option value="member">Member</option>
-                <option value="admin">Admin</option>
-              </select>
-            </div>
-          </div>
+          <h1 className="text-title-h1 text-brown-900">
+            CUME App
+          </h1>
         </div>
       </header>
 
@@ -460,7 +415,6 @@ function HomePage() {
           </p>
         </div>
       </footer>
-      </div>
     </div>
   )
 }
