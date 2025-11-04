@@ -41,7 +41,7 @@ const Icons = ({
   const defaultSize = type === 'img' ? '48px' : '40px';
   const containerSize = size || defaultSize;
   // Para FontAwesome: 22px (ou customizado), para SVG: auto (se adapta ao container), para img: 48px
-  const iconInnerSize = iconSize || (type === 'icon' ? '22px' : type === 'img' ? '48px' : 'auto');
+  const iconInnerSize = iconSize || (type === 'icon' ? '20px' : type === 'img' ? '48px' : 'auto');
   // Cor padrão para FontAwesome: gray-700, mas pode ser customizada
   const iconColorClass = iconColor || 'text-gray-700';
 
@@ -68,7 +68,7 @@ const Icons = ({
   if (type === 'icon') {
     return (
       <div 
-        className={`flex items-center justify-center p-[10px] rounded-full ${className}`}
+        className={`flex items-center justify-center p-[9px] rounded-full ${className}`}
         style={{ width: containerSize, height: containerSize }}
       >
         <i 

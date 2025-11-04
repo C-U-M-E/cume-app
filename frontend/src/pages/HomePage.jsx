@@ -1,4 +1,5 @@
 import ButtonOptions from '../components/ButtonOptions';
+import Button from '../components/Button';
 
 function HomePage() {
   return (
@@ -123,6 +124,173 @@ function HomePage() {
               title="Sem Ícone"
               description="Exemplo sem ícone"
               onClick={() => console.log('Clique em Sem Ícone')}
+            />
+          </div>
+        </section>
+
+        {/* Button Examples Section */}
+        <section className="mb-48">
+          <h2 className="text-title-h2 text-amber-700 mb-16">
+            Exemplos de Button (Primary)
+          </h2>
+          <div className="flex flex-col gap-12 max-w-md">
+            {/* Exemplo brown padrão com ícone específico */}
+            <Button
+              textButton="Botão Brown"
+              variant="primary"
+              style="brown"
+              showIconLeft={true}
+              showIconRight={true}
+              iconType="specific-icon"
+              specificIcon="carteira"
+              onClick={() => console.log('Clique em Botão Brown')}
+            />
+
+            {/* Exemplo amber padrão com ícone específico */}
+            <Button
+              textButton="Botão Amber"
+              variant="primary"
+              style="amber"
+              showIconLeft={true}
+              showIconRight={true}
+              iconType="specific-icon"
+              specificIcon="home"
+              onClick={() => console.log('Clique em Botão Amber')}
+            />
+
+            {/* Exemplo brown com ícone FontAwesome */}
+            <Button
+              textButton="Com FontAwesome"
+              variant="primary"
+              style="brown"
+              showIconLeft={true}
+              showIconRight={true}
+              iconType="icon"
+              icon="fas fa-user"
+              iconColor="text-white"
+              onClick={() => console.log('Clique em Com FontAwesome')}
+            />
+
+            {/* Exemplo amber com imagem */}
+            <Button
+              textButton="Com Imagem"
+              variant="primary"
+              style="amber"
+              showIconLeft={true}
+              showIconRight={true}
+              iconType="img"
+              img="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=100&h=100&fit=crop"
+              onClick={() => console.log('Clique em Com Imagem')}
+            />
+
+            {/* Exemplo sem ícone esquerdo */}
+            <Button
+              textButton="Sem Ícone Esquerdo"
+              variant="primary"
+              style="brown"
+              showIconLeft={false}
+              showIconRight={true}
+              onClick={() => console.log('Clique em Sem Ícone Esquerdo')}
+            />
+
+            {/* Exemplo sem ícone direito */}
+            <Button
+              textButton="Sem Ícone Direito"
+              variant="primary"
+              style="amber"
+              showIconLeft={true}
+              showIconRight={false}
+              iconType="specific-icon"
+              specificIcon="escalar"
+              onClick={() => console.log('Clique em Sem Ícone Direito')}
+            />
+
+            {/* Exemplo sem ícones */}
+            <Button
+              textButton="Apenas Texto"
+              variant="primary"
+              style="brown"
+              showIconLeft={false}
+              showIconRight={false}
+              onClick={() => console.log('Clique em Apenas Texto')}
+            />
+
+            {/* Exemplo com ícone escalar */}
+            <Button
+              textButton="Escalar"
+              variant="primary"
+              style="amber"
+              showIconLeft={true}
+              showIconRight={true}
+              iconType="specific-icon"
+              specificIcon="escalar"
+              onClick={() => console.log('Clique em Escalar')}
+            />
+          </div>
+        </section>
+
+        {/* Button Secondary Examples Section */}
+        <section className="mb-48">
+          <h2 className="text-title-h2 text-amber-700 mb-16">
+            Exemplos de Button (Secondary)
+          </h2>
+          <div className="flex flex-col gap-12 max-w-md">
+            {/* Exemplo secondary padrão */}
+            <Button
+              textButton="Botão Secondary"
+              variant="secondary"
+              showIconLeft={true}
+              iconType="specific-icon"
+              specificIcon="carteira"
+              onClick={() => console.log('Clique em Botão Secondary')}
+            />
+
+            {/* Exemplo secondary com ícone específico diferente */}
+            <Button
+              textButton="Secondary Home"
+              variant="secondary"
+              showIconLeft={true}
+              iconType="specific-icon"
+              specificIcon="home"
+              onClick={() => console.log('Clique em Secondary Home')}
+            />
+
+            {/* Exemplo secondary com FontAwesome */}
+            <Button
+              textButton="Com FontAwesome"
+              variant="secondary"
+              showIconLeft={true}
+              iconType="icon"
+              icon="fas fa-user"
+              onClick={() => console.log('Clique em Com FontAwesome')}
+            />
+
+            {/* Exemplo secondary com imagem */}
+            <Button
+              textButton="Com Imagem"
+              variant="secondary"
+              showIconLeft={true}
+              iconType="img"
+              img="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=100&h=100&fit=crop"
+              onClick={() => console.log('Clique em Com Imagem')}
+            />
+
+            {/* Exemplo secondary sem ícone */}
+            <Button
+              textButton="Sem Ícone"
+              variant="secondary"
+              showIconLeft={false}
+              onClick={() => console.log('Clique em Sem Ícone')}
+            />
+
+            {/* Exemplo secondary com ícone escalar */}
+            <Button
+              textButton="Escalar"
+              variant="secondary"
+              showIconLeft={true}
+              iconType="specific-icon"
+              specificIcon="escalar"
+              onClick={() => console.log('Clique em Escalar')}
             />
           </div>
         </section>
