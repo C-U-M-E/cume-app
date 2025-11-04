@@ -1,9 +1,12 @@
+/* Importar fonte Poppins - deve vir antes de tudo */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* FontAwesome - Ícones gratuitos */
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Importar fonte Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 /* Estilos globais */
 :root {
@@ -27,7 +30,7 @@ body {
   width: 100%;
 }
 
-/* Estilos de texto customizados */
+/* Estilos de texto do CUME */
 @layer components {
   /* Body Styles */
   .text-body-sm-regular {
