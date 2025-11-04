@@ -61,11 +61,14 @@ const Button = ({
 
     const bgColor = getBgColor();
     const hoverColor = style === 'amber' ? 'hover:bg-amber-800' : 'hover:bg-brown-900';
+    
+    // Padding left: pl-0 quando tem ícone, pl-12 quando não tem ícone
+    const leftPadding = showIconLeft ? 'pl-4' : 'pl-12';
 
     return (
       <button
         onClick={onClick}
-        className={`${bgColor} ${hoverColor} flex items-center justify-center gap-12 h-[64px] px-24 py-0 rounded-16 shadow-[0px_0px_10px_0px_rgba(255,255,255,0.2)] transition-colors ${className}`}
+        className={`${bgColor} ${hoverColor} flex items-center justify-center h-[64px] ${leftPadding} pr-24 py-0 rounded-16 shadow-[0px_0px_10px_0px_rgba(255,255,255,0.2)] transition-colors ${className}`}
       >
         {/* Ícone à esquerda usando componente Icons */}
         {showIconLeft && (
@@ -76,12 +79,12 @@ const Button = ({
             img={img}
             iconColor={defaultIconColor}
             iconSize={iconSize}
-            className="shrink-0"
+            className="shrink-0 mr-8"
           />
         )}
 
         {/* Texto do botão */}
-        <p className={`text-body-lg-medium ${textColor} whitespace-nowrap shrink-0`}>
+        <p className={`text-body-lg-medium ${textColor} whitespace-nowrap shrink-0 ${defaultShowIconRight ? 'mr-12' : ''}`}>
           {textButton}
         </p>
 
