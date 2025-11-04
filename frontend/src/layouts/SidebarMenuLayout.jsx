@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 import SidebarMenu from '../components/SidebarMenu';
+import Header from '../components/Header';
+import useMediaQuery from '../hooks/useMediaQuery';
 
 /**
  * Layout principal com SidebarMenu
@@ -10,7 +12,8 @@ import SidebarMenu from '../components/SidebarMenu';
  * @param {Object} props.user - Objeto com informações do usuário { name, avatar }
  */
 function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avatar: null } }) {
-  const [menuOpen, setMenuOpen] = useState(true);
+  const isDesktop = useMediaQuery(1024);
+  const [menuOpen, setMenuOpen] = useState(isDesktop); // Desktop: menu aberto por padrão, Mobile: fechado
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -23,6 +26,19 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
     if (path === '/database') return 'Base de dados';
     if (path === '/settings') return 'Configurações';
     return 'Página inicial';
+  };
+
+  // Mapeia o caminho para título e ícone da página
+  const getPageInfo = () => {
+    const path = location.pathname;
+    const pageMap = {
+      '/climb': { title: 'Escalar', icon: 'escalar' },
+      '/documents': { title: 'Documentos', icon: 'carteira' },
+      '/manage': { title: 'Gerenciar fila', icon: 'home' },
+      '/database': { title: 'Base de dados', icon: 'home' },
+      '/settings': { title: 'Configurações', icon: 'home' },
+    };
+    return pageMap[path] || { title: 'Página', icon: 'home' };
   };
 
   // Mapeia o nome do item para a rota
@@ -46,22 +62,33 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
       default:
         break;
     }
+    
+    // Fecha o menu no mobile após navegar
+    if (!isDesktop) {
+      setMenuOpen(false);
+    }
   };
 
-  const sidebarWidth = menuOpen ? '320px' : '92px';
+  // No mobile, sempre usa 320px. No desktop, muda entre 320px e 92px
+  const sidebarWidth = isDesktop ? (menuOpen ? '320px' : '92px') : '320px';
+  const isHomepage = location.pathname === '/';
+  const pageInfo = getPageInfo();
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Sidebar Menu - Fixo */}
+      {/* Sidebar Menu - Fixo no desktop, overlay no mobile */}
       <div 
-        className="fixed top-0 left-0 h-screen z-10"
+        className={`fixed top-0 left-0 h-screen z-10 transition-all duration-300 ease-in-out ${
+          isDesktop ? '' : menuOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
         style={{ width: sidebarWidth }}
       >
         <SidebarMenu
-          type={menuOpen ? "open" : "close"}
+          type={isDesktop ? (menuOpen ? "open" : "close") : "open"}
           role={userRole}
           activeItem={getActiveItem()}
           user={user}
+          isMobile={!isDesktop}
           onToggle={() => setMenuOpen(!menuOpen)}
           onSettings={() => navigate('/settings')}
           onLogout={() => console.log('Fazer logout')}
@@ -69,12 +96,32 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
         />
       </div>
 
-      {/* Main Content - Com margin para compensar o menu fixo */}
+      {/* Overlay no mobile quando menu está aberto */}
+      {!isDesktop && (
+        <div
+          className={`fixed inset-0 bg-black z-[9] transition-opacity duration-300 ${
+            menuOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'
+          }`}
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
+
+      {/* Main Content - Com margin para compensar o menu fixo no desktop */}
       <div 
-        className="min-h-screen bg-white"
-        style={{ marginLeft: sidebarWidth }}
+        className="min-h-screen bg-white flex flex-col transition-all duration-300 ease-in-out"
+        style={{ marginLeft: isDesktop ? sidebarWidth : '0' }}
       >
-        <Outlet />
+        {/* Header */}
+        <Header
+          style={isHomepage ? 'forHomepage' : 'forPages'}
+          pageTitle={pageInfo.title}
+          pageIcon={pageInfo.icon}
+          onHamburgerClick={() => setMenuOpen(!menuOpen)}
+          onAccessibilityClick={() => console.log('Acessibilidade')}
+        />
+        <div className="flex-1">
+          <Outlet />
+        </div>
       </div>
     </div>
   );

@@ -16,6 +16,7 @@ import cumeLogo from '../assets/images/cume-text-logo.svg';
  * @param {Function} props.onSettings - Função callback ao clicar em configurações
  * @param {Function} props.onLogout - Função callback ao clicar em logout
  * @param {Function} props.onMenuItemClick - Função callback ao clicar em um item do menu (recebe o nome do item)
+ * @param {boolean} props.isMobile - Se está no mobile (para mostrar X ao invés de chevron)
  * @param {string} props.className - Classes adicionais do Tailwind
  */
 const SidebarMenu = ({ 
@@ -28,6 +29,7 @@ const SidebarMenu = ({
   onSettings,
   onLogout,
   onMenuItemClick,
+  isMobile = false,
   className = ''
 }) => {
   const isOpen = type === 'open';
@@ -106,7 +108,11 @@ const SidebarMenu = ({
             onClick={onToggle}
             className="flex items-center justify-center rounded-8 shrink-0 size-40 hover:bg-amber-50 transition-colors"
           >
-            <i className="fas fa-chevron-right text-brown-900 text-[16px]" />
+            {isMobile ? (
+              <i className="fas fa-times text-brown-900 text-[20px]" />
+            ) : (
+              <i className="fas fa-chevron-right text-brown-900 text-[16px]" />
+            )}
           </button>
         </div>
 
@@ -170,7 +176,11 @@ const SidebarMenu = ({
           onClick={onToggle}
           className="flex items-center justify-center rounded-8 shrink-0 size-40 hover:bg-amber-50 transition-colors"
         >
-          <i className="fas fa-chevron-left text-brown-900 text-[16px]" />
+          {isMobile ? (
+            <i className="fas fa-times text-brown-900 text-[20px]" />
+          ) : (
+            <i className="fas fa-chevron-left text-brown-900 text-[16px]" />
+          )}
         </button>
       </div>
 

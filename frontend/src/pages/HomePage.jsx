@@ -5,15 +5,6 @@ import ButtonMenu from '../components/ButtonMenu';
 function HomePage() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-white border-b border-brown-100">
-        <div className="max-w-7xl mx-auto px-16 py-12">
-          <h1 className="text-title-h1 text-brown-900">
-            CUME App
-          </h1>
-        </div>
-      </header>
-
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-16 py-32">
         {/* Hero Section */}
