@@ -1,15 +1,61 @@
+import { useState } from 'react';
 import ButtonOptions from '../components/ButtonOptions';
 import Button from '../components/Button';
+import ButtonMenu from '../components/ButtonMenu';
+import SidebarMenu from '../components/SidebarMenu';
 
 function HomePage() {
+  const [menuOpen, setMenuOpen] = useState(true);
+  const [userRole, setUserRole] = useState("user"); // "user", "member", "admin"
+  const [activeItem, setActiveItem] = useState("Página inicial");
+
+  const user = {
+    name: "Gabriel Filho",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
+  };
+
+  const handleMenuItemClick = (itemName) => {
+    setActiveItem(itemName);
+    console.log(`Navegar para: ${itemName}`);
+  };
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white flex">
+      {/* Sidebar Menu */}
+      <SidebarMenu
+        type={menuOpen ? "open" : "close"}
+        role={userRole}
+        activeItem={activeItem}
+        user={user}
+        onToggle={() => setMenuOpen(!menuOpen)}
+        onSettings={() => console.log('Abrir configurações')}
+        onLogout={() => console.log('Fazer logout')}
+        onMenuItemClick={handleMenuItemClick}
+      />
+
+      {/* Main Content */}
+      <div className="flex-1 min-h-screen bg-white">
       {/* Header */}
       <header className="bg-white border-b border-brown-100">
         <div className="max-w-7xl mx-auto px-16 py-12">
-          <h1 className="text-title-h1 text-brown-900">
-            CUME App
-          </h1>
+          <div className="flex items-center justify-between">
+            <h1 className="text-title-h1 text-brown-900">
+              CUME App
+            </h1>
+            {/* Seletor de Role para demonstração */}
+            <div className="flex gap-8 items-center">
+              <span className="text-body-md-medium text-brown-700">Role:</span>
+              <select 
+                value={userRole} 
+                onChange={(e) => setUserRole(e.target.value)}
+                className="text-body-md-medium text-brown-900 px-12 py-4 rounded-8 border border-brown-300 bg-white"
+              >
+                <option value="user">User</option>
+                <option value="member">Member</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -295,6 +341,77 @@ function HomePage() {
           </div>
         </section>
 
+        {/* ButtonMenu Examples Section */}
+        <section className="mb-48">
+          <h2 className="text-title-h2 text-amber-700 mb-16">
+            Exemplos de ButtonMenu
+          </h2>
+          <div className="flex flex-col gap-12 max-w-md">
+            {/* Exemplo default */}
+            <ButtonMenu
+              buttonText="Menu Item Default"
+              state="default"
+              iconType="specific-icon"
+              specificIcon="home"
+              onClick={() => console.log('Clique em Menu Item Default')}
+            />
+
+            {/* Exemplo hover */}
+            <ButtonMenu
+              buttonText="Menu Item Hover"
+              state="hover"
+              iconType="specific-icon"
+              specificIcon="carteira"
+              onClick={() => console.log('Clique em Menu Item Hover')}
+            />
+
+            {/* Exemplo active */}
+            <ButtonMenu
+              buttonText="Menu Item Active"
+              state="active"
+              iconType="specific-icon"
+              specificIcon="escalar"
+              onClick={() => console.log('Clique em Menu Item Active')}
+            />
+
+            {/* Exemplo com FontAwesome */}
+            <ButtonMenu
+              buttonText="Menu com FontAwesome"
+              state="default"
+              iconType="icon"
+              icon="fas fa-user"
+              onClick={() => console.log('Clique em Menu com FontAwesome')}
+            />
+
+            {/* Exemplo com imagem */}
+            <ButtonMenu
+              buttonText="Menu com Imagem"
+              state="default"
+              iconType="img"
+              img="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=100&h=100&fit=crop"
+              onClick={() => console.log('Clique em Menu com Imagem')}
+            />
+
+            {/* Exemplo hover com ícone diferente */}
+            <ButtonMenu
+              buttonText="Menu Hover Custom"
+              state="hover"
+              iconType="icon"
+              icon="fas fa-cog"
+              onClick={() => console.log('Clique em Menu Hover Custom')}
+            />
+
+            {/* Exemplo active com ícone diferente */}
+            <ButtonMenu
+              buttonText="Menu Active Custom"
+              state="active"
+              iconType="specific-icon"
+              specificIcon="home"
+              onClick={() => console.log('Clique em Menu Active Custom')}
+            />
+          </div>
+        </section>
+
         {/* Features Section */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-24">
           <div className="bg-white border border-brown-100 rounded-lg p-16">
@@ -343,6 +460,7 @@ function HomePage() {
           </p>
         </div>
       </footer>
+      </div>
     </div>
   )
 }
