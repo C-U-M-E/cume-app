@@ -1,3 +1,5 @@
+import ButtonOptions from '../components/ButtonOptions';
+
 function HomePage() {
   return (
     <div className="min-h-screen bg-white">
@@ -24,6 +26,105 @@ function HomePage() {
             <i className="fas fa-rocket"></i>
             Começar
           </button>
+        </section>
+
+        {/* ButtonOptions Examples Section */}
+        <section className="mb-48">
+          <h2 className="text-title-h2 text-amber-700 mb-16">
+            Exemplos de ButtonOptions
+          </h2>
+          <div className="flex flex-col gap-12 max-w-md">
+            {/* Exemplo com imagem (type="img") */}
+            <ButtonOptions
+              title="Escalar Montanha"
+              description="14 de março, 2024"
+              img="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=200&h=200&fit=crop"
+              onClick={() => console.log('Clique em Escalar Montanha')}
+            />
+            
+            {/* Exemplo com ícone específico do projeto (type="specific-icon") */}
+            <ButtonOptions
+              title="Home"
+              description="Acesse a página inicial"
+              iconType="specific-icon"
+              specificIcon="home"
+              onClick={() => console.log('Clique em Home')}
+            />
+            
+            {/* Exemplo com outro ícone específico */}
+            <ButtonOptions
+              title="Carteira"
+              description="Gerencie suas carteiras"
+              iconType="specific-icon"
+              specificIcon="carteira"
+              onClick={() => console.log('Clique em Carteira')}
+            />
+            
+            {/* Exemplo com ícone FontAwesome (type="icon") */}
+            <ButtonOptions
+              title="Usuário"
+              description="Perfil do usuário"
+              iconType="icon"
+              icon="fas fa-user"
+              onClick={() => console.log('Clique em Usuário')}
+            />
+            
+            {/* Exemplo com outro ícone FontAwesome */}
+            <ButtonOptions
+              title="Configurações"
+              description="Ajuste as configurações"
+              iconType="icon"
+              icon="fas fa-cog"
+              onClick={() => console.log('Clique em Configurações')}
+            />
+            
+            {/* Exemplo com ícone FontAwesome com cor customizada */}
+            <ButtonOptions
+              title="Cor Customizada"
+              description="Ícone com cor amber-500"
+              iconType="icon"
+              icon="fas fa-star"
+              iconColor="text-amber-500"
+              onClick={() => console.log('Clique em Cor Customizada')}
+            />
+            
+            {/* Exemplo com ícone FontAwesome com tamanho customizado */}
+            <ButtonOptions
+              title="Tamanho Customizado"
+              description="Ícone com tamanho 28px"
+              iconType="icon"
+              icon="fas fa-heart"
+              iconSize="28px"
+              onClick={() => console.log('Clique em Tamanho Customizado')}
+            />
+            
+            {/* Exemplo com ícone FontAwesome com cor e tamanho customizados */}
+            <ButtonOptions
+              title="Cor e Tamanho Customizados"
+              description="Ícone brown-700 com 32px"
+              iconType="icon"
+              icon="fas fa-bell"
+              iconColor="text-brown-700"
+              iconSize="32px"
+              onClick={() => console.log('Clique em Cor e Tamanho Customizados')}
+            />
+            
+            {/* Exemplo com ícone escalar (specific-icon) */}
+            <ButtonOptions
+              title="Escalar"
+              description="Atividades de escalada"
+              iconType="specific-icon"
+              specificIcon="escalar"
+              onClick={() => console.log('Clique em Escalar')}
+            />
+            
+            {/* Exemplo sem ícone */}
+            <ButtonOptions
+              title="Sem Ícone"
+              description="Exemplo sem ícone"
+              onClick={() => console.log('Clique em Sem Ícone')}
+            />
+          </div>
         </section>
 
         {/* Features Section */}
