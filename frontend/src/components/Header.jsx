@@ -74,7 +74,7 @@ const Header = ({
   // forPages - Página com título
   if (headerStyle === 'forPages') {
     return (
-      <div className={`bg-white flex gap-10 items-center justify-end pt-48 px-8 w-full ${isDesktop ? 'max-w-7xl mx-auto' : ''} ${className}`}>
+      <div className={`bg-white flex gap-10 items-center justify-end pt-48 px-8 w-full ${className}`}>
         <div className="flex flex-col grow justify-center min-w-0">
           <p className={`${isDesktop ? 'text-title-h1' : 'text-title-h3'} text-brown-900 leading-[1.4]`}>
             {pageTitle || 'Página'}
@@ -92,7 +92,7 @@ const Header = ({
 
   // forHomepage - Página inicial (padronizado como forPages)
   return (
-    <div className={`bg-white flex gap-10 items-center justify-end pt-48 px-32 w-full ${isDesktop ? 'max-w-7xl mx-auto' : ''} ${className}`}>
+    <div className={`bg-white flex gap-10 items-center justify-end pt-48 px-32 w-full ${className}`}>
       <div className="flex flex-col grow justify-center min-w-0">
         <p className={`${isDesktop ? 'text-title-h1' : 'text-title-h3'} text-brown-900 leading-[1.4]`}>
           Página inicial

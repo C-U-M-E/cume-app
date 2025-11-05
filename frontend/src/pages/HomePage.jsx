@@ -1,411 +1,17 @@
-import ButtonOptions from '../components/ButtonOptions';
 import Button from '../components/Button';
-import ButtonMenu from '../components/ButtonMenu';
 import MiniCard from '../components/MiniCard';
 import Comment from '../components/Comment';
+import Wave from '../components/Wave';
 
 function HomePage() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-16 py-32">
-        {/* Hero Section */}
-        <section className="mb-48">
-          <h2 className="text-title-h2 text-amber-700 mb-16">
-            Bem-vindo ao CUME App
-          </h2>
-          <p className="text-body-lg-regular text-brown-600 mb-12 max-w-2xl">
-            Este é o início do seu projeto. Comece a desenvolver suas páginas e componentes aqui.
-          </p>
-          <button className="bg-amber-500 hover:bg-amber-600 text-white text-body-md-medium px-24 py-8 rounded-lg transition duration-200 flex items-center gap-8">
-            <i className="fas fa-rocket"></i>
-            Começar
-          </button>
-        </section>
-
-        {/* ButtonOptions Examples Section */}
-        <section className="mb-48">
-          <h2 className="text-title-h2 text-amber-700 mb-16">
-            Exemplos de ButtonOptions
-          </h2>
-          <div className="flex flex-col gap-12 max-w-md">
-            {/* Exemplo com imagem (type="img") */}
-            <ButtonOptions
-              title="Escalar Montanha"
-              description="14 de março, 2024"
-              img="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=200&h=200&fit=crop"
-              onClick={() => console.log('Clique em Escalar Montanha')}
-            />
-            
-            {/* Exemplo com ícone específico do projeto (type="specific-icon") */}
-            <ButtonOptions
-              title="Home"
-              description="Acesse a página inicial"
-              iconType="specific-icon"
-              specificIcon="home"
-              onClick={() => console.log('Clique em Home')}
-            />
-            
-            {/* Exemplo com outro ícone específico */}
-            <ButtonOptions
-              title="Carteira"
-              description="Gerencie suas carteiras"
-              iconType="specific-icon"
-              specificIcon="carteira"
-              onClick={() => console.log('Clique em Carteira')}
-            />
-            
-            {/* Exemplo com ícone FontAwesome (type="icon") */}
-            <ButtonOptions
-              title="Usuário"
-              description="Perfil do usuário"
-              iconType="icon"
-              icon="fas fa-user"
-              onClick={() => console.log('Clique em Usuário')}
-            />
-            
-            {/* Exemplo com outro ícone FontAwesome */}
-            <ButtonOptions
-              title="Configurações"
-              description="Ajuste as configurações"
-              iconType="icon"
-              icon="fas fa-cog"
-              onClick={() => console.log('Clique em Configurações')}
-            />
-            
-            {/* Exemplo com ícone FontAwesome com cor customizada */}
-            <ButtonOptions
-              title="Cor Customizada"
-              description="Ícone com cor amber-500"
-              iconType="icon"
-              icon="fas fa-star"
-              iconColor="text-amber-500"
-              onClick={() => console.log('Clique em Cor Customizada')}
-            />
-            
-            {/* Exemplo com ícone FontAwesome com tamanho customizado */}
-            <ButtonOptions
-              title="Tamanho Customizado"
-              description="Ícone com tamanho 28px"
-              iconType="icon"
-              icon="fas fa-heart"
-              iconSize="28px"
-              onClick={() => console.log('Clique em Tamanho Customizado')}
-            />
-            
-            {/* Exemplo com ícone FontAwesome com cor e tamanho customizados */}
-            <ButtonOptions
-              title="Cor e Tamanho Customizados"
-              description="Ícone brown-700 com 32px"
-              iconType="icon"
-              icon="fas fa-bell"
-              iconColor="text-brown-700"
-              iconSize="32px"
-              onClick={() => console.log('Clique em Cor e Tamanho Customizados')}
-            />
-            
-            {/* Exemplo com ícone escalar (specific-icon) */}
-            <ButtonOptions
-              title="Escalar"
-              description="Atividades de escalada"
-              iconType="specific-icon"
-              specificIcon="escalar"
-              onClick={() => console.log('Clique em Escalar')}
-            />
-            
-            {/* Exemplo sem ícone */}
-            <ButtonOptions
-              title="Sem Ícone"
-              description="Exemplo sem ícone"
-              onClick={() => console.log('Clique em Sem Ícone')}
-            />
-          </div>
-        </section>
-
-        {/* Button Examples Section */}
-        <section className="mb-48">
-          <h2 className="text-title-h2 text-amber-700 mb-16">
-            Exemplos de Button (Primary)
-          </h2>
-          <div className="flex flex-col gap-12 max-w-md">
-            {/* Exemplo brown padrão com ícone específico */}
-            <Button
-              textButton="Botão Brown"
-              variant="primary"
-              style="brown"
-              showIconLeft={true}
-              showIconRight={true}
-              iconType="specific-icon"
-              specificIcon="carteira"
-              onClick={() => console.log('Clique em Botão Brown')}
-            />
-
-            {/* Exemplo amber padrão com ícone específico */}
-            <Button
-              textButton="Botão Amber"
-              variant="primary"
-              style="amber"
-              showIconLeft={true}
-              showIconRight={true}
-              iconType="specific-icon"
-              specificIcon="home"
-              onClick={() => console.log('Clique em Botão Amber')}
-            />
-
-            {/* Exemplo brown com ícone FontAwesome */}
-            <Button
-              textButton="Com FontAwesome"
-              variant="primary"
-              style="brown"
-              showIconLeft={true}
-              showIconRight={true}
-              iconType="icon"
-              icon="fas fa-user"
-              iconColor="text-white"
-              onClick={() => console.log('Clique em Com FontAwesome')}
-            />
-
-            {/* Exemplo amber com imagem */}
-            <Button
-              textButton="Com Imagem"
-              variant="primary"
-              style="amber"
-              showIconLeft={true}
-              showIconRight={true}
-              iconType="img"
-              img="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=100&h=100&fit=crop"
-              onClick={() => console.log('Clique em Com Imagem')}
-            />
-
-            {/* Exemplo sem ícone esquerdo */}
-            <Button
-              textButton="Sem Ícone Esquerdo"
-              variant="primary"
-              style="brown"
-              showIconLeft={false}
-              showIconRight={true}
-              onClick={() => console.log('Clique em Sem Ícone Esquerdo')}
-            />
-
-            {/* Exemplo sem ícone direito */}
-            <Button
-              textButton="Sem Ícone Direito"
-              variant="primary"
-              style="amber"
-              showIconLeft={true}
-              showIconRight={false}
-              iconType="specific-icon"
-              specificIcon="escalar"
-              onClick={() => console.log('Clique em Sem Ícone Direito')}
-            />
-
-            {/* Exemplo sem ícones */}
-            <Button
-              textButton="Apenas Texto"
-              variant="primary"
-              style="brown"
-              showIconLeft={false}
-              showIconRight={false}
-              onClick={() => console.log('Clique em Apenas Texto')}
-            />
-
-            {/* Exemplo com ícone escalar */}
-            <Button
-              textButton="Escalar"
-              variant="primary"
-              style="amber"
-              showIconLeft={true}
-              showIconRight={true}
-              iconType="specific-icon"
-              specificIcon="escalar"
-              onClick={() => console.log('Clique em Escalar')}
-            />
-          </div>
-        </section>
-
-        {/* Button Secondary Examples Section */}
-        <section className="mb-48">
-          <h2 className="text-title-h2 text-amber-700 mb-16">
-            Exemplos de Button (Secondary)
-          </h2>
-          <div className="flex flex-col gap-12 max-w-md">
-            {/* Exemplo secondary padrão */}
-            <Button
-              textButton="Botão Secondary"
-              variant="secondary"
-              showIconLeft={true}
-              iconType="specific-icon"
-              specificIcon="carteira"
-              onClick={() => console.log('Clique em Botão Secondary')}
-            />
-
-            {/* Exemplo secondary com ícone específico diferente */}
-            <Button
-              textButton="Secondary Home"
-              variant="secondary"
-              showIconLeft={true}
-              iconType="specific-icon"
-              specificIcon="home"
-              onClick={() => console.log('Clique em Secondary Home')}
-            />
-
-            {/* Exemplo secondary com FontAwesome */}
-            <Button
-              textButton="Com FontAwesome"
-              variant="secondary"
-              showIconLeft={true}
-              iconType="icon"
-              icon="fas fa-user"
-              onClick={() => console.log('Clique em Com FontAwesome')}
-            />
-
-            {/* Exemplo secondary com imagem */}
-            <Button
-              textButton="Com Imagem"
-              variant="secondary"
-              showIconLeft={true}
-              iconType="img"
-              img="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=100&h=100&fit=crop"
-              onClick={() => console.log('Clique em Com Imagem')}
-            />
-
-            {/* Exemplo secondary sem ícone */}
-            <Button
-              textButton="Sem Ícone"
-              variant="secondary"
-              showIconLeft={false}
-              onClick={() => console.log('Clique em Sem Ícone')}
-            />
-
-            {/* Exemplo secondary com ícone escalar */}
-            <Button
-              textButton="Escalar"
-              variant="secondary"
-              showIconLeft={true}
-              iconType="specific-icon"
-              specificIcon="escalar"
-              onClick={() => console.log('Clique em Escalar')}
-            />
-          </div>
-        </section>
-
-        {/* ButtonMenu Examples Section */}
-        <section className="mb-48">
-          <h2 className="text-title-h2 text-amber-700 mb-16">
-            Exemplos de ButtonMenu
-          </h2>
-          <div className="flex flex-col gap-12 max-w-md">
-            {/* Exemplo default */}
-            <ButtonMenu
-              buttonText="Menu Item Default"
-              state="default"
-              iconType="specific-icon"
-              specificIcon="home"
-              onClick={() => console.log('Clique em Menu Item Default')}
-            />
-
-            {/* Exemplo hover */}
-            <ButtonMenu
-              buttonText="Menu Item Hover"
-              state="hover"
-              iconType="specific-icon"
-              specificIcon="carteira"
-              onClick={() => console.log('Clique em Menu Item Hover')}
-            />
-
-            {/* Exemplo active */}
-            <ButtonMenu
-              buttonText="Menu Item Active"
-              state="active"
-              iconType="specific-icon"
-              specificIcon="escalar"
-              onClick={() => console.log('Clique em Menu Item Active')}
-            />
-
-            {/* Exemplo com FontAwesome */}
-            <ButtonMenu
-              buttonText="Menu com FontAwesome"
-              state="default"
-              iconType="icon"
-              icon="fas fa-user"
-              onClick={() => console.log('Clique em Menu com FontAwesome')}
-            />
-
-            {/* Exemplo com imagem */}
-            <ButtonMenu
-              buttonText="Menu com Imagem"
-              state="default"
-              iconType="img"
-              img="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=100&h=100&fit=crop"
-              onClick={() => console.log('Clique em Menu com Imagem')}
-            />
-
-            {/* Exemplo hover com ícone diferente */}
-            <ButtonMenu
-              buttonText="Menu Hover Custom"
-              state="hover"
-              iconType="icon"
-              icon="fas fa-cog"
-              onClick={() => console.log('Clique em Menu Hover Custom')}
-            />
-
-            {/* Exemplo active com ícone diferente */}
-            <ButtonMenu
-              buttonText="Menu Active Custom"
-              state="active"
-              iconType="specific-icon"
-              specificIcon="home"
-              onClick={() => console.log('Clique em Menu Active Custom')}
-            />
-          </div>
-        </section>
-
-        {/* Features Section */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-24">
-          <div className="bg-white border border-brown-100 rounded-lg p-16">
-            <div className="mb-12">
-              <i className="fas fa-star text-amber-500 text-4xl"></i>
-            </div>
-            <h3 className="text-title-h3 text-brown-800 mb-8">
-              Feature 1
-            </h3>
-            <p className="text-body-md-regular text-gray-700">
-              Descrição da primeira feature do seu projeto.
-            </p>
-          </div>
-
-          <div className="bg-white border border-brown-100 rounded-lg p-16">
-            <div className="mb-12">
-              <i className="fas fa-heart text-amber-500 text-4xl"></i>
-            </div>
-            <h3 className="text-title-h3 text-brown-800 mb-8">
-              Feature 2
-            </h3>
-            <p className="text-body-md-regular text-gray-700">
-              Descrição da segunda feature do seu projeto.
-            </p>
-          </div>
-
-          <div className="bg-white border border-brown-100 rounded-lg p-16">
-            <div className="mb-12">
-              <i className="fas fa-shield-alt text-amber-500 text-4xl"></i>
-            </div>
-            <h3 className="text-title-h3 text-brown-800 mb-8">
-              Feature 3
-            </h3>
-            <p className="text-body-md-regular text-gray-700">
-              Descrição da terceira feature do seu projeto.
-            </p>
-          </div>
-        </section>
-
-        {/* MiniCard Examples Section */}
-        <section className="mb-48">
-          <h2 className="text-title-h2 text-amber-700 mb-16">
-            Exemplos de MiniCard
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-24">
-            {/* Small - Active */}
+    <div className="min-h-screen bg-amber-50 flex flex-col">
+      {/* Content Section */}
+      <div className="flex flex-col grow items-center w-full z-[1]">
+        {/* Top Section: MiniCard + Buttons */}
+        <div className="bg-white flex flex-col items-center justify-center w-full z-[3]">
+          <div className="bg-white flex flex-col gap-32 items-center justify-center max-w-[800px] px-24 py-32 w-full">
+            {/* MiniCard */}
             <MiniCard
               type="active"
               size="small"
@@ -419,106 +25,98 @@ function HomePage() {
               onButtonClick={() => console.log('Acessar carteirinha')}
             />
 
-            {/* Small - Não Emitida */}
-            <MiniCard
-              type="nao-emitida"
-              size="small"
-              name="João Silva"
-              avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
-              birthDate="15/03/1995"
-              rg="123456789"
-              cpf="12345678901"
-              onButtonClick={() => console.log('Emitir carteirinha')}
-            />
+            {/* Bottom Buttons */}
+            <div className="flex gap-16 items-start w-full">
+              {/* Button Escalar */}
+              <Button
+                textButton="Escalar"
+                variant="secondary"
+                showIconLeft={true}
+                showIconRight={false}
+                iconType="specific-icon"
+                specificIcon="escalar"
+                onClick={() => console.log('Clique em Escalar')}
+                className="grow"
+              />
 
-            {/* Small - Vencida */}
-            <MiniCard
-              type="vencida"
-              size="small"
-              name="Maria Santos"
-              avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
-              birthDate="20/07/1990"
-              rg="987654321"
-              cpf="98765432100"
-              issueDate="01/01/2024"
-              expiryDate="01/07/2024"
-              onButtonClick={() => console.log('Renovar carteirinha')}
-            />
-
-            {/* Large - Active */}
-            <MiniCard
-              type="active"
-              size="large"
-              name="Gabriel Filho"
-              avatar="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
-              birthDate="05/01/2003"
-              rg="234567890"
-              cpf="44012345678"
-              issueDate="02/05/2025"
-              expiryDate="02/11/2025"
-              onButtonClick={() => console.log('Acessar carteirinha')}
-            />
-
-            {/* Large - Não Emitida */}
-            <MiniCard
-              type="nao-emitida"
-              size="large"
-              name="João Silva"
-              avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
-              birthDate="15/03/1995"
-              rg="123456789"
-              cpf="12345678901"
-              onButtonClick={() => console.log('Emitir carteirinha')}
-            />
-
-            {/* Large - Vencida */}
-            <MiniCard
-              type="vencida"
-              size="large"
-              name="Maria Santos"
-              avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
-              birthDate="20/07/1990"
-              rg="987654321"
-              cpf="98765432100"
-              issueDate="01/01/2024"
-              expiryDate="01/07/2024"
-              onButtonClick={() => console.log('Renovar carteirinha')}
-            />
+              {/* Button Documentos */}
+              <Button
+                textButton="Documentos"
+                variant="secondary"
+                showIconLeft={true}
+                showIconRight={false}
+                iconType="specific-icon"
+                specificIcon="carteira"
+                onClick={() => console.log('Clique em Documentos')}
+                className="grow"
+              />
+            </div>
           </div>
-        </section>
-
-        {/* Comment Examples Section */}
-        <section className="mb-48">
-          <h2 className="text-title-h2 text-amber-700 mb-16">
-            Exemplos de Comment
-          </h2>
-          <div className="flex flex-col gap-24 max-w-md">
-            <Comment
-              text="Este é um exemplo de comentário que será preenchido com informações vindas do backend. O avatar e os textos serão dinâmicos."
-              name="Gabriel Filho"
-              data="15/01/2025"
-              hour="14:30"
-              avatar="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
-            />
-            <Comment
-              text="Outro exemplo de comentário para demonstrar o componente funcionando com diferentes dados."
-              name="Maria Silva"
-              data="16/01/2025"
-              hour="09:15"
-              avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
-            />
-          </div>
-        </section>
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-brown-50 border-t border-brown-100 mt-48">
-        <div className="max-w-7xl mx-auto px-16 py-24">
-          <p className="text-body-md-regular text-brown-600 text-center">
-            © 2024 CUME App. Todos os direitos reservados.
-          </p>
         </div>
-      </footer>
+
+        {/* Wave Decorativo */}
+        <Wave />
+
+        {/* Bottom Section: Últimos avisos */}
+        <div className="bg-amber-50 flex flex-col gap-32 items-start pb-80 pt-16 px-32 w-full z-[1]">
+          {/* Título */}
+          <p className="text-body-lg-medium text-brown-900 whitespace-nowrap">
+            Últimos avisos
+          </p>
+
+          {/* Comentários */}
+          <div className="flex flex-col gap-24 items-start w-full">
+            <Comment
+              text="Quem precisa de carona para a UFSCAR no horário da aula, me chama no WhatsApp!"
+              name="Ana Paula"
+              data="19/09/2025"
+              hour="15:06"
+              avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
+            />
+
+            <Comment
+              text="Gente, hoje não vamos ter aula por conta da chuva. Passamos nossa aula para semana que vem. Abraços!"
+              name="Eduardo da Silva"
+              data="10/07/2025"
+              hour="12:34"
+              avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+            />
+
+            <Comment
+              text="Amanhã vamos focar em técnicas de segurança. Aguardem as aulas!"
+              name="Lucas Moreira"
+              data="14/05/2025"
+              hour="13:06"
+              avatar="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
+            />
+
+            <Comment
+              text="Quem precisa de carona para a UFSCAR no horário da aula, me chama no WhatsApp!"
+              name="Ana Paula"
+              data="19/09/2025"
+              hour="15:06"
+              avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
+            />
+
+            <Comment
+              text="Gente, hoje não vamos ter aula por conta da chuva. Passamos nossa aula para semana que vem. Abraços!"
+              name="Eduardo da Silva"
+              data="10/07/2025"
+              hour="12:34"
+              avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+            />
+
+            <Comment
+              text="Amanhã vamos focar em técnicas de segurança. Aguardem as aulas!"
+              name="Lucas Moreira"
+              data="14/05/2025"
+              hour="13:06"
+              avatar="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
+            />
+          </div>
+        </div>
+      </div>
+
     </div>
   )
 }
