@@ -53,6 +53,7 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
     
     const pageMap = {
       '/climb': { title: 'Escalar', icon: 'escalar' },
+      '/climb/register-attendance': { title: 'Registrar presença', icon: 'escalar' },
       '/documents': { title: 'Documentos', icon: 'carteira' },
       '/documents/minicardpage': { title: 'Carteirinha', icon: 'carteira' },
       '/documents/disclaimer': { title: 'Termo de responsabilidade', icon: 'carteira' },
@@ -111,10 +112,11 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
   const isPhotoDocumentsPage = location.pathname === '/documents/photo-documents';
   const isMemberFormsPage = location.pathname === '/documents/member-forms';
   const isQueueClimbPage = location.pathname === '/climb/queue';
+  const isRegisterAttendancePage = location.pathname === '/climb/register-attendance';
   const pageInfo = getPageInfo();
   
   // Determina o estilo do header (forPages2 para subpáginas com botão de voltar)
-  const headerStyle = isHomepage ? 'forHomepage' : ((isMiniCardPage || isDisclaimerPage || isPhotoDocumentsPage || isMemberFormsPage || isQueueClimbPage) ? 'forPages2' : 'forPages');
+  const headerStyle = isHomepage ? 'forHomepage' : ((isMiniCardPage || isDisclaimerPage || isPhotoDocumentsPage || isMemberFormsPage || isQueueClimbPage || isRegisterAttendancePage) ? 'forPages2' : 'forPages');
 
   return (
     <div className="min-h-screen bg-white">
@@ -162,7 +164,7 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
           onBackClick={
             (isMiniCardPage || isDisclaimerPage || isPhotoDocumentsPage || isMemberFormsPage) 
               ? () => navigate('/documents') 
-              : isQueueClimbPage 
+              : (isQueueClimbPage || isRegisterAttendancePage)
                 ? () => navigate('/climb') 
                 : undefined
           }

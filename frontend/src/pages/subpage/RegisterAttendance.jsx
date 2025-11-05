@@ -1,45 +1,35 @@
 import React, { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import viaVector from '../../assets/images/via-vector.svg';
 import confirmationVector from '../../assets/images/confirmation-vector.svg';
 
-function QueueClimb() {
-  const [searchParams] = useSearchParams();
-  const viaType = searchParams.get('via') || 'normal'; // normal, abaolada, resumo, reglete
+function RegisterAttendance() {
+  // Estado da presença - futuramente virá do backend
+  const [attendanceStatus] = useState('waitingAttendanceConfirmation'); // 'waitingAttendanceConfirmation' ou 'attendanceConfirmed'
   
-  // TODO: Quando o backend estiver disponível, enviar viaType para o backend
-  // Exemplo: await api.enterQueue({ viaType });
-  
-  // Estado da fila - futuramente virá do backend
-  const [queueStatus] = useState('waitingQRConfirmation'); // 'waitingQRConfirmation' ou 'inTheQueue'
-  
-  // Mock de dados da fila - futuramente virá do backend
-  const queueInfo = {
-    peopleInQueue: 3,
-    estimatedTime: 45
-  };
+  // TODO: Quando o estado mudar de 'waitingAttendanceConfirmation' para 'attendanceConfirmed',
+  // adicionar um toaster/notificação para informar o usuário da mudança de estado
 
   // Gera um QR Code aleatório (mock)
   const generateQRCode = () => {
     // QR Code mock - futuramente será gerado pelo backend
     return 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + 
-           encodeURIComponent(`queue-${viaType}-${Date.now()}`);
+           encodeURIComponent(`attendance-${Date.now()}`);
   };
 
   const qrCodeUrl = generateQRCode();
 
   // Estado: Aguardando confirmação do QR Code
-  if (queueStatus === 'waitingQRConfirmation') {
+  if (attendanceStatus === 'waitingAttendanceConfirmation') {
     return (
-      <div className="h-full bg-white flex flex-col gap-40 px-24 pb-24 overflow-x-hidden">
+      <div className="h-full bg-white flex flex-col gap-32 px-24 pb-24 overflow-x-hidden">
         {/* Content - área scrollável */}
         <div className="flex-1 flex flex-col gap-56 items-start w-full min-h-0 overflow-y-auto pb-0">
-          {/* Seção Superior: Entrar na fila */}
+          {/* Seção Superior: Registrar presença */}
           <div className="flex gap-8 items-center px-8 py-0 w-full shrink-0">
             {/* Texto */}
             <div className="flex flex-col gap-8 grow items-start">
               <h2 className="text-title-h2 text-brown-900 leading-[1.4]">
-                Entrar na fila
+                Registrar presença
               </h2>
               <p className="text-body-md-regular text-gray-600 leading-[1.5]">
                 Mostre o QR Code gerado para um dos administradores
@@ -65,20 +55,13 @@ function QueueClimb() {
             />
           </div>
         </div>
-
-        {/* Informação da fila - fixo no bottom */}
-        <div className="bg-brown-50 flex gap-12 items-center justify-center px-24 py-8 rounded-12 shrink-0 w-full max-w-[308px] mx-auto">
-          <p className="text-body-md-medium text-brown-900 leading-[1.5] text-center whitespace-nowrap">
-            Há {queueInfo.peopleInQueue} pessoas na fila ({queueInfo.estimatedTime} minutos)
-          </p>
-        </div>
       </div>
     );
   }
 
-  // Estado: Na fila (confirmação)
+  // Estado: Presença confirmada
   return (
-    <div className="h-full bg-white flex flex-col gap-32 items-center px-24 py-0 overflow-x-hidden pb-24">
+    <div className="h-full bg-white flex flex-col gap-32 items-center px-24 pb-24 overflow-x-hidden">
       {/* Scrollable Content Area */}
       <div className="flex-1 flex flex-col gap-32 items-center justify-center w-full overflow-y-auto pt-0 pb-0 min-h-0">
         {/* Empty State Illustration */}
@@ -93,22 +76,15 @@ function QueueClimb() {
         {/* Text Content */}
         <div className="flex flex-col gap-12 items-start text-center w-full">
           <p className="text-title-h3 text-brown-900 leading-[1.4] w-full">
-            Você está na fila!
+            Presença do dia registrada!
           </p>
           <p className="text-body-md-regular text-gray-600 leading-[1.5] w-full">
-            Pegue sapatilhas e se prepare para a escalada! Qualquer dúvida, fale com um administrador
+            Agora você pode usar as sapatilhas e escalar no reservatório!
           </p>
         </div>
-      </div>
-
-      {/* Informação da fila - fixo no bottom */}
-      <div className="bg-brown-50 flex gap-12 items-center justify-center px-24 py-8 rounded-12 shrink-0 w-full max-w-[308px]">
-        <p className="text-body-md-medium text-brown-900 leading-[1.5] text-center whitespace-nowrap">
-          Há {queueInfo.peopleInQueue} pessoas na fila ({queueInfo.estimatedTime} minutos)
-        </p>
       </div>
     </div>
   );
 }
 
-export default QueueClimb;
+export default RegisterAttendance;

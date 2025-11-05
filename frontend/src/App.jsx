@@ -13,6 +13,7 @@ import DisclaimerPage from './pages/subpage/DisclaimerPage';
 import PhotoDocuments from './pages/subpage/PhotoDocuments';
 import MemberForms from './pages/subpage/MemberForms';
 import QueueClimb from './pages/subpage/QueueClimb';
+import RegisterAttendance from './pages/subpage/RegisterAttendance';
 
 function App() {
   // Mock do usuário - em produção viria de um contexto/auth
@@ -33,6 +34,7 @@ function App() {
           <Route path="climb">
             <Route index element={<Climb />} />
             <Route path="queue" element={<QueueClimb />} />
+            <Route path="register-attendance" element={<RegisterAttendance />} />
           </Route>
           <Route path="documents">
             <Route index element={<Documents />} />

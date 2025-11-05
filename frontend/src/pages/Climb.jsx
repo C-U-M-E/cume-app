@@ -89,7 +89,7 @@ function Climb() {
               description="Necessário para usar sapatilha"
               iconType="img"
               img="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=100&h=100&fit=crop"
-              onClick={() => console.log('Clique em Registrar presença')}
+              onClick={() => navigate('/climb/register-attendance')}
             />
           </div>
         </div>
