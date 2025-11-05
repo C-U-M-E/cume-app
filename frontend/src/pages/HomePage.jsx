@@ -1,6 +1,7 @@
 import ButtonOptions from '../components/ButtonOptions';
 import Button from '../components/Button';
 import ButtonMenu from '../components/ButtonMenu';
+import MiniCard from '../components/MiniCard';
 
 function HomePage() {
   return (
@@ -394,6 +395,94 @@ function HomePage() {
             <p className="text-body-md-regular text-gray-700">
               Descrição da terceira feature do seu projeto.
             </p>
+          </div>
+        </section>
+
+        {/* MiniCard Examples Section */}
+        <section className="mb-48">
+          <h2 className="text-title-h2 text-amber-700 mb-16">
+            Exemplos de MiniCard
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-24">
+            {/* Small - Active */}
+            <MiniCard
+              type="active"
+              size="small"
+              name="Gabriel Filho"
+              avatar="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
+              birthDate="05/01/2003"
+              rg="234567890"
+              cpf="44012345678"
+              issueDate="02/05/2025"
+              expiryDate="02/11/2025"
+              onButtonClick={() => console.log('Acessar carteirinha')}
+            />
+
+            {/* Small - Não Emitida */}
+            <MiniCard
+              type="nao-emitida"
+              size="small"
+              name="João Silva"
+              avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+              birthDate="15/03/1995"
+              rg="123456789"
+              cpf="12345678901"
+              onButtonClick={() => console.log('Emitir carteirinha')}
+            />
+
+            {/* Small - Vencida */}
+            <MiniCard
+              type="vencida"
+              size="small"
+              name="Maria Santos"
+              avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
+              birthDate="20/07/1990"
+              rg="987654321"
+              cpf="98765432100"
+              issueDate="01/01/2024"
+              expiryDate="01/07/2024"
+              onButtonClick={() => console.log('Renovar carteirinha')}
+            />
+
+            {/* Large - Active */}
+            <MiniCard
+              type="active"
+              size="large"
+              name="Gabriel Filho"
+              avatar="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
+              birthDate="05/01/2003"
+              rg="234567890"
+              cpf="44012345678"
+              issueDate="02/05/2025"
+              expiryDate="02/11/2025"
+              onButtonClick={() => console.log('Acessar carteirinha')}
+            />
+
+            {/* Large - Não Emitida */}
+            <MiniCard
+              type="nao-emitida"
+              size="large"
+              name="João Silva"
+              avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+              birthDate="15/03/1995"
+              rg="123456789"
+              cpf="12345678901"
+              onButtonClick={() => console.log('Emitir carteirinha')}
+            />
+
+            {/* Large - Vencida */}
+            <MiniCard
+              type="vencida"
+              size="large"
+              name="Maria Santos"
+              avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
+              birthDate="20/07/1990"
+              rg="987654321"
+              cpf="98765432100"
+              issueDate="01/01/2024"
+              expiryDate="01/07/2024"
+              onButtonClick={() => console.log('Renovar carteirinha')}
+            />
           </div>
         </section>
       </main>
