@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import ButtonOptions from '../components/ButtonOptions';
 import climbVector from '../assets/images/climb-vector.svg';
 
 function Climb() {
+  const navigate = useNavigate();
   return (
     <div className="h-full bg-white flex flex-col gap-40 px-24 py-0 overflow-x-hidden">
       {/* Content */}
@@ -39,7 +41,7 @@ function Climb() {
               description="Ideal para iniciantes"
               iconType="img"
               img="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=100&h=100&fit=crop"
-              onClick={() => console.log('Clique em Via Normal')}
+              onClick={() => navigate('/climb/queue?via=normal')}
             />
 
             {/* Via Abaolada */}
@@ -48,7 +50,7 @@ function Climb() {
               description="Ideal para iniciantes"
               iconType="img"
               img="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=100&h=100&fit=crop"
-              onClick={() => console.log('Clique em Via Abaolada')}
+              onClick={() => navigate('/climb/queue?via=abaolada')}
             />
 
             {/* Via Resumo */}
@@ -57,7 +59,7 @@ function Climb() {
               description="Ideal para intermediários"
               iconType="img"
               img="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=100&h=100&fit=crop"
-              onClick={() => console.log('Clique em Via Resumo')}
+              onClick={() => navigate('/climb/queue?via=resumo')}
             />
 
             {/* Via Reglete */}
@@ -66,7 +68,7 @@ function Climb() {
               description="Ideal para avançados"
               iconType="img"
               img="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=100&h=100&fit=crop"
-              onClick={() => console.log('Clique em Via Reglete')}
+              onClick={() => navigate('/climb/queue?via=reglete')}
             />
           </div>
         </div>

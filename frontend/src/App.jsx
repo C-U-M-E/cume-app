@@ -12,6 +12,7 @@ import MiniCardPage from './pages/subpage/MiniCardPage';
 import DisclaimerPage from './pages/subpage/DisclaimerPage';
 import PhotoDocuments from './pages/subpage/PhotoDocuments';
 import MemberForms from './pages/subpage/MemberForms';
+import QueueClimb from './pages/subpage/QueueClimb';
 
 function App() {
   // Mock do usuário - em produção viria de um contexto/auth
@@ -29,7 +30,10 @@ function App() {
         <Route path="/" element={<SidebarMenuLayout userRole={userRole} user={user} />}>
           //pages
           <Route index element={<HomePage />} />
-          <Route path="climb" element={<Climb />} />
+          <Route path="climb">
+            <Route index element={<Climb />} />
+            <Route path="queue" element={<QueueClimb />} />
+          </Route>
           <Route path="documents">
             <Route index element={<Documents />} />
             <Route path="minicardpage" element={<MiniCardPage />} />

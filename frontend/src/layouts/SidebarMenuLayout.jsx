@@ -20,7 +20,7 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
   // Mapeia o caminho atual para o item ativo
   const getActiveItem = () => {
     const path = location.pathname;
-    if (path === '/climb') return 'Escalar';
+    if (path === '/climb' || path.startsWith('/climb/')) return 'Escalar';
     if (path === '/documents' || path.startsWith('/documents/')) return 'Documentos';
     if (path === '/manage') return 'Gerenciar fila';
     if (path === '/database') return 'Base de dados';
@@ -31,6 +31,26 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
   // Mapeia o caminho para título e ícone da página
   const getPageInfo = () => {
     const path = location.pathname;
+    
+    // Extrai o tipo de via da URL se estiver na página de fila
+    if (path === '/climb/queue') {
+      const searchParams = new URLSearchParams(location.search);
+      const viaType = searchParams.get('via') || 'normal';
+      
+      // Mapeia o tipo de via para o título
+      const viaTitles = {
+        'normal': 'Via Normal',
+        'abaolada': 'Via Abaolada',
+        'resumo': 'Via Resumo',
+        'reglete': 'Via Reglete'
+      };
+      
+      return { 
+        title: viaTitles[viaType] || 'Via Normal', 
+        icon: 'escalar' 
+      };
+    }
+    
     const pageMap = {
       '/climb': { title: 'Escalar', icon: 'escalar' },
       '/documents': { title: 'Documentos', icon: 'carteira' },
@@ -90,10 +110,11 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
   const isDisclaimerPage = location.pathname === '/documents/disclaimer';
   const isPhotoDocumentsPage = location.pathname === '/documents/photo-documents';
   const isMemberFormsPage = location.pathname === '/documents/member-forms';
+  const isQueueClimbPage = location.pathname === '/climb/queue';
   const pageInfo = getPageInfo();
   
   // Determina o estilo do header (forPages2 para subpáginas com botão de voltar)
-  const headerStyle = isHomepage ? 'forHomepage' : ((isMiniCardPage || isDisclaimerPage || isPhotoDocumentsPage || isMemberFormsPage) ? 'forPages2' : 'forPages');
+  const headerStyle = isHomepage ? 'forHomepage' : ((isMiniCardPage || isDisclaimerPage || isPhotoDocumentsPage || isMemberFormsPage || isQueueClimbPage) ? 'forPages2' : 'forPages');
 
   return (
     <div className="min-h-screen bg-white">
@@ -138,7 +159,13 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
           pageTitle={pageInfo.title}
           pageIcon={pageInfo.icon}
           onHamburgerClick={() => setMenuOpen(!menuOpen)}
-          onBackClick={(isMiniCardPage || isDisclaimerPage || isPhotoDocumentsPage || isMemberFormsPage) ? () => navigate('/documents') : undefined}
+          onBackClick={
+            (isMiniCardPage || isDisclaimerPage || isPhotoDocumentsPage || isMemberFormsPage) 
+              ? () => navigate('/documents') 
+              : isQueueClimbPage 
+                ? () => navigate('/climb') 
+                : undefined
+          }
           onAccessibilityClick={() => console.log('Acessibilidade')}
         />
         <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden">
