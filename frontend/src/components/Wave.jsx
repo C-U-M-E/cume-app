@@ -7,7 +7,7 @@ import React from 'react';
  */
 const Wave = ({ className = '' }) => {
   return (
-    <div className={`flex flex-col gap-10 items-start overflow-hidden pb-24 pt-0 px-0 shrink-0 sticky top-0 w-full z-[2] ${className}`}>
+    <div className={`flex flex-col gap-10 items-start overflow-hidden pb-24 pt-0 px-0 shrink-0 top-0 w-full z-[2] ${className}`}>
       <div className="h-[17.5px] relative shrink-0 w-full">
         <svg 
           width="100%" 

@@ -14,9 +14,9 @@ function MiniCardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col px-24 py-0">
+    <div className="h-full bg-white flex flex-col px-24 py-0">
       {/* MiniCard em tamanho large */}
-      <div className="flex flex-col gap-48 items-center w-full pt-32">
+      <div className="flex flex-col gap-48 items-center w-full">
         <MiniCard
           type="active"
           size="large"

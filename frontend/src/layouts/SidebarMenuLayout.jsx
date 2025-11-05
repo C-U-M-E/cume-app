@@ -36,6 +36,8 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
       '/documents': { title: 'Documentos', icon: 'carteira' },
       '/documents/minicardpage': { title: 'Carteirinha', icon: 'carteira' },
       '/documents/disclaimer': { title: 'Termo de responsabilidade', icon: 'carteira' },
+      '/documents/photo-documents': { title: 'Documento com fotos', icon: 'carteira' },
+      '/documents/member-forms': { title: 'Formulário de associado', icon: 'carteira' },
       '/manage': { title: 'Gerenciar fila', icon: 'home' },
       '/database': { title: 'Base de dados', icon: 'home' },
       '/settings': { title: 'Configurações', icon: 'home' },
@@ -76,10 +78,12 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
   const isHomepage = location.pathname === '/';
   const isMiniCardPage = location.pathname === '/documents/minicardpage';
   const isDisclaimerPage = location.pathname === '/documents/disclaimer';
+  const isPhotoDocumentsPage = location.pathname === '/documents/photo-documents';
+  const isMemberFormsPage = location.pathname === '/documents/member-forms';
   const pageInfo = getPageInfo();
   
   // Determina o estilo do header (forPages2 para subpáginas com botão de voltar)
-  const headerStyle = isHomepage ? 'forHomepage' : ((isMiniCardPage || isDisclaimerPage) ? 'forPages2' : 'forPages');
+  const headerStyle = isHomepage ? 'forHomepage' : ((isMiniCardPage || isDisclaimerPage || isPhotoDocumentsPage || isMemberFormsPage) ? 'forPages2' : 'forPages');
 
   return (
     <div className="min-h-screen bg-white">
@@ -124,10 +128,10 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
           pageTitle={pageInfo.title}
           pageIcon={pageInfo.icon}
           onHamburgerClick={() => setMenuOpen(!menuOpen)}
-          onBackClick={(isMiniCardPage || isDisclaimerPage) ? () => navigate('/documents') : undefined}
+          onBackClick={(isMiniCardPage || isDisclaimerPage || isPhotoDocumentsPage || isMemberFormsPage) ? () => navigate('/documents') : undefined}
           onAccessibilityClick={() => console.log('Acessibilidade')}
         />
-        <div className="flex-1 min-h-0 overflow-hidden">
+        <div className="flex-1 min-h-0 overflow-y-auto">
           <Outlet />
         </div>
       </div>

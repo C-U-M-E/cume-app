@@ -8,12 +8,12 @@ function HomePage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-amber-50 flex flex-col">
+    <div className="h-full bg-amber-50 flex flex-col">
       {/* Content Section */}
       <div className="flex flex-col grow items-center w-full z-[1]">
         {/* Top Section: MiniCard + Buttons */}
         <div className="bg-white flex flex-col items-center justify-center w-full z-[3]">
-          <div className="bg-white flex flex-col gap-32 items-center justify-center max-w-[800px] px-24 py-32 w-full">
+          <div className="bg-white flex flex-col gap-32 items-center justify-center max-w-[800px] px-24 pb-32 w-full">
             {/* MiniCard */}
             <MiniCard
               type="active"

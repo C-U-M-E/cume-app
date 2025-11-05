@@ -7,7 +7,7 @@ function Documents() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-white flex flex-col gap-40 px-24 py-0">
+    <div className="h-full bg-white flex flex-col gap-40 px-24 py-0">
       {/* Content */}
       <div className="flex flex-col gap-48 items-start w-full">
         {/* Seção Superior: Sua Carteirinha */}
@@ -62,7 +62,7 @@ function Documents() {
               iconType="icon"
               icon="fas fa-images"
               iconColor="text-brown-900"
-              onClick={() => console.log('Clique em Documento com fotos')}
+              onClick={() => navigate('/documents/photo-documents')}
             />
           </div>
         </div>
@@ -86,7 +86,7 @@ function Documents() {
               iconType="icon"
               icon="fas fa-file"
               iconColor="text-brown-900"
-              onClick={() => console.log('Clique em Formulário de associado')}
+              onClick={() => navigate('/documents/member-forms')}
             />
           </div>
         </div>

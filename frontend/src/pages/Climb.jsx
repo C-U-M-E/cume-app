@@ -4,7 +4,7 @@ import climbVector from '../assets/images/climb-vector.svg';
 
 function Climb() {
   return (
-    <div className="min-h-screen bg-white flex flex-col gap-40 px-24 py-0">
+    <div className="h-full bg-white flex flex-col gap-40 px-24 py-0">
       {/* Content */}
       <div className="flex flex-col gap-48 items-start w-full">
         {/* Seção Superior: Se desafie nas escaladas */}

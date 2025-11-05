@@ -10,6 +10,8 @@ import Settings from './pages/Settings';
 //Subpages
 import MiniCardPage from './pages/subpage/MiniCardPage';
 import DisclaimerPage from './pages/subpage/DisclaimerPage';
+import PhotoDocuments from './pages/subpage/PhotoDocuments';
+import MemberForms from './pages/subpage/MemberForms';
 
 function App() {
   // Mock do usuário - em produção viria de um contexto/auth
@@ -32,6 +34,8 @@ function App() {
             <Route index element={<Documents />} />
             <Route path="minicardpage" element={<MiniCardPage />} />
             <Route path="disclaimer" element={<DisclaimerPage />} />
+            <Route path="photo-documents" element={<PhotoDocuments />} />
+            <Route path="member-forms" element={<MemberForms />} />
           </Route>
           <Route path="manage" element={<Manage />} />
           <Route path="database" element={<DataBase />} />
