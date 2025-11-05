@@ -101,7 +101,7 @@ const SidebarMenu = ({
   // Se fechado, renderiza versão compacta
   if (!isOpen) {
     return (
-      <div className={`bg-white border-r-2 border-brown-100 flex flex-col gap-48 h-screen items-start overflow-y-auto ${width} ${className}`}>
+      <div className={`bg-white border-r-2 border-brown-50 flex flex-col gap-48 h-screen items-start overflow-y-auto ${width} ${className}`}>
         {/* Header */}
         <div className="flex gap-8 items-center justify-center pb-12 pt-48 px-16 w-full">
           <button
@@ -142,7 +142,7 @@ const SidebarMenu = ({
         </div>
 
         {/* Footer - apenas avatar */}
-        <div className="bg-white border-t border-brown-100 flex flex-col gap-8 items-center px-16 py-24 w-full">
+        <div className="bg-white border-t border-brown-50 flex flex-col gap-8 items-center px-16 py-24 w-full">
           {user.avatar && (
             <img 
               src={user.avatar} 
@@ -157,7 +157,7 @@ const SidebarMenu = ({
 
   // Versão aberta
   return (
-    <div className={`bg-white border-r-2 border-brown-100 flex flex-col gap-48 h-screen items-start overflow-y-auto ${width} ${className}`}>
+    <div className={`bg-white border-r-2 border-brown-50 flex flex-col gap-48 h-screen items-start overflow-y-auto ${width} ${className}`}>
       {/* Header */}
       <div className="flex gap-8 items-center pb-12 pt-48 px-32 w-full">
         <div className="flex gap-8 grow items-start">
@@ -202,7 +202,7 @@ const SidebarMenu = ({
       </div>
 
       {/* Footer - User Info */}
-      <div className="bg-white border-t border-brown-100 flex flex-col gap-8 items-start px-16 py-24 w-full">
+      <div className="bg-white border-t border-brown-50 flex flex-col gap-8 items-start px-16 py-24 w-full">
         <div className="flex items-center w-full">
           <div className="flex gap-8 grow items-center">
             {user.avatar && (

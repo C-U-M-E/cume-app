@@ -2,6 +2,7 @@ import ButtonOptions from '../components/ButtonOptions';
 import Button from '../components/Button';
 import ButtonMenu from '../components/ButtonMenu';
 import MiniCard from '../components/MiniCard';
+import Comment from '../components/Comment';
 
 function HomePage() {
   return (
@@ -482,6 +483,29 @@ function HomePage() {
               issueDate="01/01/2024"
               expiryDate="01/07/2024"
               onButtonClick={() => console.log('Renovar carteirinha')}
+            />
+          </div>
+        </section>
+
+        {/* Comment Examples Section */}
+        <section className="mb-48">
+          <h2 className="text-title-h2 text-amber-700 mb-16">
+            Exemplos de Comment
+          </h2>
+          <div className="flex flex-col gap-24 max-w-md">
+            <Comment
+              text="Este é um exemplo de comentário que será preenchido com informações vindas do backend. O avatar e os textos serão dinâmicos."
+              name="Gabriel Filho"
+              data="15/01/2025"
+              hour="14:30"
+              avatar="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
+            />
+            <Comment
+              text="Outro exemplo de comentário para demonstrar o componente funcionando com diferentes dados."
+              name="Maria Silva"
+              data="16/01/2025"
+              hour="09:15"
+              avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
             />
           </div>
         </section>
