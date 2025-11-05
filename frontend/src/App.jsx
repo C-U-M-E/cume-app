@@ -7,6 +7,10 @@ import Manage from './pages/Manage';
 import DataBase from './pages/DataBase';
 import Settings from './pages/Settings';
 
+//Subpages
+import MiniCardPage from './pages/subpage/MiniCardPage';
+import DisclaimerPage from './pages/subpage/DisclaimerPage';
+
 function App() {
   // Mock do usuário - em produção viria de um contexto/auth
   const user = {
@@ -21,9 +25,14 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<SidebarMenuLayout userRole={userRole} user={user} />}>
+          //pages
           <Route index element={<HomePage />} />
           <Route path="climb" element={<Climb />} />
-          <Route path="documents" element={<Documents />} />
+          <Route path="documents">
+            <Route index element={<Documents />} />
+            <Route path="minicardpage" element={<MiniCardPage />} />
+            <Route path="disclaimer" element={<DisclaimerPage />} />
+          </Route>
           <Route path="manage" element={<Manage />} />
           <Route path="database" element={<DataBase />} />
           <Route path="settings" element={<Settings />} />

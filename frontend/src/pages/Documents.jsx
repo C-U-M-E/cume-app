@@ -1,8 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import ButtonOptions from '../components/ButtonOptions';
 import docsVector from '../assets/images/docs-vector.svg';
 
 function Documents() {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-white flex flex-col gap-40 px-24 py-0">
       {/* Content */}
@@ -39,7 +42,7 @@ function Documents() {
               description="Emitida"
               iconType="specific-icon"
               specificIcon="carteira"
-              onClick={() => console.log('Clique em Carteirinha')}
+              onClick={() => navigate('/documents/minicardpage')}
             />
 
             {/* Termo de responsabilidade */}
@@ -49,7 +52,7 @@ function Documents() {
               iconType="icon"
               icon="fas fa-file"
               iconColor="text-brown-900"
-              onClick={() => console.log('Clique em Termo de responsabilidade')}
+              onClick={() => navigate('/documents/disclaimer')}
             />
 
             {/* Documento com fotos */}

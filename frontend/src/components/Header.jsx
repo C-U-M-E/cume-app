@@ -63,7 +63,7 @@ const Header = ({
       <div className={`bg-white flex gap-8 items-center justify-end pt-48 pb-40 px-32 w-full ${className}`}>
         <ButtonChevronClose />
         <div className="flex flex-col grow justify-center min-w-0">
-          <p className="text-title-h3 text-brown-900 leading-[1.4]">
+        <p className={`${isDesktop ? 'text-title-h1' : 'text-title-h3'} text-brown-900 leading-[1.4]`}>
             {pageTitle || 'Termo de responsabilidade'}
           </p>
         </div>

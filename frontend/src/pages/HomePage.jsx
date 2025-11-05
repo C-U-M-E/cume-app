@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import MiniCard from '../components/MiniCard';
 import Comment from '../components/Comment';
 import Wave from '../components/Wave';
 
 function HomePage() {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-amber-50 flex flex-col">
       {/* Content Section */}
@@ -22,7 +25,7 @@ function HomePage() {
               cpf="44012345678"
               issueDate="02/05/2025"
               expiryDate="02/11/2025"
-              onButtonClick={() => console.log('Acessar carteirinha')}
+              onButtonClick={() => navigate('/documents/minicardpage')}
             />
 
             {/* Bottom Buttons */}

@@ -160,7 +160,7 @@ const MiniCard = ({
 
   // LARGE SIZE
   return (
-    <div className={`flex flex-col gap-48 items-start w-full ${className}`}>
+    <div className={`flex flex-col gap-48 items-start w-full max-w-[400px] ${className}`}>
       <div className={`backdrop-blur-md backdrop-filter ${config.bgColor} ${config.borderColor} ${config.shadow} rounded-[15px] p-16 relative overflow-hidden w-full`}>
         {/* Decorative vectors */}
         <div 

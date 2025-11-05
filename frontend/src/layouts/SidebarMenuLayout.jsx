@@ -21,7 +21,7 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
   const getActiveItem = () => {
     const path = location.pathname;
     if (path === '/climb') return 'Escalar';
-    if (path === '/documents') return 'Documentos';
+    if (path === '/documents' || path.startsWith('/documents/')) return 'Documentos';
     if (path === '/manage') return 'Gerenciar fila';
     if (path === '/database') return 'Base de dados';
     if (path === '/settings') return 'Configurações';
@@ -34,6 +34,8 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
     const pageMap = {
       '/climb': { title: 'Escalar', icon: 'escalar' },
       '/documents': { title: 'Documentos', icon: 'carteira' },
+      '/documents/minicardpage': { title: 'Carteirinha', icon: 'carteira' },
+      '/documents/disclaimer': { title: 'Termo de responsabilidade', icon: 'carteira' },
       '/manage': { title: 'Gerenciar fila', icon: 'home' },
       '/database': { title: 'Base de dados', icon: 'home' },
       '/settings': { title: 'Configurações', icon: 'home' },
@@ -72,7 +74,12 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
   // No mobile, sempre usa 320px. No desktop, muda entre 320px e 92px
   const sidebarWidth = isDesktop ? (menuOpen ? '320px' : '92px') : '320px';
   const isHomepage = location.pathname === '/';
+  const isMiniCardPage = location.pathname === '/documents/minicardpage';
+  const isDisclaimerPage = location.pathname === '/documents/disclaimer';
   const pageInfo = getPageInfo();
+  
+  // Determina o estilo do header (forPages2 para subpáginas com botão de voltar)
+  const headerStyle = isHomepage ? 'forHomepage' : ((isMiniCardPage || isDisclaimerPage) ? 'forPages2' : 'forPages');
 
   return (
     <div className="min-h-screen bg-white">
@@ -108,18 +115,19 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
 
       {/* Main Content - Com margin para compensar o menu fixo no desktop */}
       <div 
-        className="min-h-screen bg-white flex flex-col transition-all duration-300 ease-in-out"
+        className="h-screen bg-white flex flex-col transition-all duration-300 ease-in-out overflow-hidden"
         style={{ marginLeft: isDesktop ? sidebarWidth : '0' }}
       >
         {/* Header */}
         <Header
-          style={isHomepage ? 'forHomepage' : 'forPages'}
+          style={headerStyle}
           pageTitle={pageInfo.title}
           pageIcon={pageInfo.icon}
           onHamburgerClick={() => setMenuOpen(!menuOpen)}
+          onBackClick={(isMiniCardPage || isDisclaimerPage) ? () => navigate('/documents') : undefined}
           onAccessibilityClick={() => console.log('Acessibilidade')}
         />
-        <div className="flex-1">
+        <div className="flex-1 min-h-0 overflow-hidden">
           <Outlet />
         </div>
       </div>
