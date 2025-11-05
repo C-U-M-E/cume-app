@@ -38,7 +38,7 @@ function HomePage() {
                 showIconRight={false}
                 iconType="specific-icon"
                 specificIcon="escalar"
-                onClick={() => console.log('Clique em Escalar')}
+                onClick={() => navigate('/climb')}
                 className="grow"
               />
 
@@ -50,7 +50,7 @@ function HomePage() {
                 showIconRight={false}
                 iconType="specific-icon"
                 specificIcon="carteira"
-                onClick={() => console.log('Clique em Documentos')}
+                onClick={() => navigate('/documents')}
                 className="grow"
               />
             </div>

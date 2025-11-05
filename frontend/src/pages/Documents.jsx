@@ -7,7 +7,7 @@ function Documents() {
   const navigate = useNavigate();
 
   return (
-    <div className="h-full bg-white flex flex-col gap-40 px-24 py-0">
+    <div className="h-full bg-white flex flex-col gap-40 px-24 py-0 overflow-x-hidden">
       {/* Content */}
       <div className="flex flex-col gap-48 items-start w-full">
         {/* Seção Superior: Sua Carteirinha */}
@@ -68,7 +68,7 @@ function Documents() {
         </div>
 
         {/* Seção Inferior: Quero me tornar membro */}
-        <div className="flex flex-col gap-24 items-start w-full">
+        <div className="flex flex-col gap-24 items-start w-full pb-40">
           {/* Título */}
           <div className="flex gap-16 items-center px-8 py-0 w-full">
             <div className="flex flex-col gap-8 grow items-start">

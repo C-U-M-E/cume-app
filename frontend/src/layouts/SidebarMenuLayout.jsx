@@ -73,6 +73,16 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
     }
   };
 
+  // Handler para o botão de configurações
+  const handleSettingsClick = () => {
+    navigate('/settings');
+    
+    // Fecha o menu no mobile após navegar
+    if (!isDesktop) {
+      setMenuOpen(false);
+    }
+  };
+
   // No mobile, sempre usa 320px. No desktop, muda entre 320px e 92px
   const sidebarWidth = isDesktop ? (menuOpen ? '320px' : '92px') : '320px';
   const isHomepage = location.pathname === '/';
@@ -101,7 +111,7 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
           user={user}
           isMobile={!isDesktop}
           onToggle={() => setMenuOpen(!menuOpen)}
-          onSettings={() => navigate('/settings')}
+          onSettings={handleSettingsClick}
           onLogout={() => console.log('Fazer logout')}
           onMenuItemClick={handleMenuItemClick}
         />
@@ -131,7 +141,7 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
           onBackClick={(isMiniCardPage || isDisclaimerPage || isPhotoDocumentsPage || isMemberFormsPage) ? () => navigate('/documents') : undefined}
           onAccessibilityClick={() => console.log('Acessibilidade')}
         />
-        <div className="flex-1 min-h-0 overflow-y-auto">
+        <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden">
           <Outlet />
         </div>
       </div>
