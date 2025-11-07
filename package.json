@@ -20,6 +20,8 @@
   "bugs": {
     "url": "https://github.com/C-U-M-E/cume-app/issues"
   },
-  "homepage": "https://github.com/C-U-M-E/cume-app#readme"
-
+  "homepage": "https://github.com/C-U-M-E/cume-app#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }

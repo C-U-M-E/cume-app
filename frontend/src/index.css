@@ -1,0 +1,108 @@
+/* Importar fonte Poppins - deve vir antes de tudo */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* FontAwesome - Ícones gratuitos */
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos globais */
+:root {
+  font-family: 'Poppins', system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+}
+
+/* Estilos de texto do CUME */
+@layer components {
+  /* Body Styles */
+  .text-body-sm-regular {
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0em;
+    line-height: 150%;
+  }
+
+  .text-body-sm-medium {
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0em;
+    line-height: 150%;
+  }
+
+  .text-body-md-regular {
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0em;
+    line-height: 150%;
+  }
+
+  .text-body-md-medium {
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0em;
+    line-height: 150%;
+  }
+
+  .text-body-lg-regular {
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0em;
+    line-height: 150%;
+  }
+
+  .text-body-lg-medium {
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0em;
+    line-height: 150%;
+  }
+
+  /* Title Styles */
+  .text-title-h1 {
+    font-size: 32px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0em;
+    line-height: 140%;
+  }
+
+  .text-title-h2 {
+    font-size: 24px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0em;
+    line-height: 140%;
+  }
+
+  .text-title-h3 {
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0em;
+    line-height: 140%;
+  }
+}
