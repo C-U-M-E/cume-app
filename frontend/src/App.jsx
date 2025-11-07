@@ -6,6 +6,8 @@ import Documents from './pages/Documents';
 import Manage from './pages/Manage';
 import DataBase from './pages/DataBase';
 import Settings from './pages/Settings';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 //Subpages
 import MiniCardPage from './pages/subpage/MiniCardPage';
@@ -28,6 +30,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/" element={<SidebarMenuLayout userRole={userRole} user={user} />}>
           //pages
           <Route index element={<HomePage />} />
