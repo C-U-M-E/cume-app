@@ -20,6 +20,10 @@ const READABLE_ELEMENTS = [
   'h4',
   'h5',
   'h6',
+  'a[href]',
+  'button',
+  '[role="button"]',
+  'label',
 ];
 
 const READABLE_SELECTOR = READABLE_ELEMENTS.join(', ');
@@ -28,7 +32,7 @@ const SPEAK_DELAY_MS = 200;
 
 const INTERACTIVE_ELEMENTS = ['a[href]', 'button', '[role="button"]', 'input', 'textarea', 'select'];
 const INTERACTIVE_SELECTOR = INTERACTIVE_ELEMENTS.join(', ');
-const INTERACTIVE_ACTION_THRESHOLD = 1200;
+const INTERACTIVE_ACTION_THRESHOLD = 1500;
 
 let readerEnabled = false;
 let voicesPromise = null;
@@ -39,6 +43,27 @@ let activeElement = null;
 let speakTimeoutId = null;
 let lastInteractiveTarget = null;
 let lastInteractiveTimestamp = 0;
+let speakToken = 0;
+
+const isInteractiveElement = (element) => {
+  if (!element) return false;
+  return Boolean(element.closest(INTERACTIVE_SELECTOR));
+};
+
+const shouldAllowInteractiveAction = (element) => {
+  if (!element) return false;
+  if (element !== lastInteractiveTarget) {
+    lastInteractiveTarget = element;
+    lastInteractiveTimestamp = Date.now();
+    return false;
+  }
+
+  const elapsed = Date.now() - lastInteractiveTimestamp;
+  lastInteractiveTarget = element;
+  lastInteractiveTimestamp = Date.now();
+
+  return elapsed <= INTERACTIVE_ACTION_THRESHOLD;
+};
 
 const isSpeechSupported = () => {
   if (!isBrowser()) return false;
@@ -179,7 +204,7 @@ const clearSpeakTimeout = () => {
   }
 };
 
-const speakText = async (text, { onComplete } = {}) => {
+const speakText = async (text, token, { onComplete } = {}) => {
   if (!text) return;
 
   const voices = await waitForVoices();
@@ -194,17 +219,20 @@ const speakText = async (text, { onComplete } = {}) => {
   await new Promise((resolve) => {
     utterances.forEach((utterance, index) => {
       utterance.onerror = (event) => {
-        // eslint-disable-next-line no-console
-        console.error('Erro ao reproduzir leitura:', event.error);
-        onComplete?.();
+        const ignoredErrors = ['interrupted', 'canceled'];
+        if (!ignoredErrors.includes(event.error) && token === speakToken) {
+          // eslint-disable-next-line no-console
+          console.error('Erro ao reproduzir leitura:', event.error);
+          onComplete?.();
+        }
         resolve();
       };
 
       utterance.onend = () => {
-        if (index === utterances.length - 1) {
+        if (index === utterances.length - 1 && token === speakToken) {
           onComplete?.();
-          resolve();
         }
+        resolve();
       };
 
       window.speechSynthesis.speak(utterance);
@@ -229,11 +257,13 @@ const scheduleSpeak = (text, element) => {
     return;
   }
 
+  const token = ++speakToken;
+
   speakTimeoutId = setTimeout(async () => {
     speakTimeoutId = null;
     cancelSpeech();
     try {
-      await speakText(text, {
+      await speakText(text, token, {
         onComplete: () => {
           if (element === activeElement) {
             clearActiveHighlight();
@@ -269,6 +299,10 @@ const handleReadableClick = (event) => {
     }
 
     event.preventDefault();
+    event.stopPropagation();
+    if (typeof event.stopImmediatePropagation === 'function') {
+      event.stopImmediatePropagation();
+    }
   }
 
   highlightElement(target);
@@ -324,7 +358,7 @@ export const enableSiteReader = async () => {
   cancelSpeech();
 
   try {
-    await speakText('Clique em um conteúdo para ouvir a leitura. Em botões ou links, clique novamente para ativar a ação.');
+    await speakText('Clique em um conteúdo para ouvir a leitura. Em botões ou links, clique novamente para ativar a ação.', ++speakToken);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Erro ao reproduzir instrução inicial do leitor:', error);
@@ -340,6 +374,7 @@ export const disableSiteReader = () => {
   removeClickListener();
   lastInteractiveTarget = null;
   lastInteractiveTimestamp = 0;
+  speakToken += 1;
 };
 
 export const isSiteReaderEnabled = () => readerEnabled;
