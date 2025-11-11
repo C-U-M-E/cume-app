@@ -13,7 +13,8 @@
   font-family: 'Poppins', system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  
+  --a11y-font-scale: 1;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -34,7 +35,7 @@ body {
 @layer components {
   /* Body Styles */
   .text-body-sm-regular {
-    font-size: 12px;
+    font-size: calc(12px * var(--a11y-font-scale, 1));
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
     letter-spacing: 0em;
@@ -42,7 +43,7 @@ body {
   }
 
   .text-body-sm-medium {
-    font-size: 12px;
+    font-size: calc(12px * var(--a11y-font-scale, 1));
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     letter-spacing: 0em;
@@ -50,7 +51,7 @@ body {
   }
 
   .text-body-md-regular {
-    font-size: 14px;
+    font-size: calc(14px * var(--a11y-font-scale, 1));
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
     letter-spacing: 0em;
@@ -58,7 +59,7 @@ body {
   }
 
   .text-body-md-medium {
-    font-size: 14px;
+    font-size: calc(14px * var(--a11y-font-scale, 1));
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     letter-spacing: 0em;
@@ -66,7 +67,7 @@ body {
   }
 
   .text-body-lg-regular {
-    font-size: 16px;
+    font-size: calc(16px * var(--a11y-font-scale, 1));
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
     letter-spacing: 0em;
@@ -74,7 +75,7 @@ body {
   }
 
   .text-body-lg-medium {
-    font-size: 16px;
+    font-size: calc(16px * var(--a11y-font-scale, 1));
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     letter-spacing: 0em;
@@ -83,7 +84,7 @@ body {
 
   /* Title Styles */
   .text-title-h1 {
-    font-size: 32px;
+    font-size: calc(32px * var(--a11y-font-scale, 1));
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     letter-spacing: 0em;
@@ -91,7 +92,7 @@ body {
   }
 
   .text-title-h2 {
-    font-size: 24px;
+    font-size: calc(24px * var(--a11y-font-scale, 1));
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     letter-spacing: 0em;
@@ -99,7 +100,7 @@ body {
   }
 
   .text-title-h3 {
-    font-size: 20px;
+    font-size: calc(20px * var(--a11y-font-scale, 1));
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     letter-spacing: 0em;

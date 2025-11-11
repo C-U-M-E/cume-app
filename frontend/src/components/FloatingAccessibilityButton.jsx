@@ -5,6 +5,7 @@ import AccessibilityOptionsPanel from './AccessibilityOptionsPanel';
 import { LEVEL_ITEMS, TOGGLE_ITEMS } from '../constants/accessibility';
 import { disableVlibras, enableVlibras } from '../utils/vlibras';
 import { disableSiteReader, enableSiteReader } from '../utils/siteReader';
+import { applyFontScale, resetFontScale } from '../utils/fontScaler';
 
 const buildInitialToggleState = () =>
   TOGGLE_ITEMS.reduce(
@@ -81,10 +82,15 @@ const FloatingAccessibilityButton = ({ onClick, className = '' }) => {
     }
   }, [toggleStates.reader]);
 
+  useEffect(() => {
+    applyFontScale(levelStates.font ?? 0);
+  }, [levelStates.font]);
+
   useEffect(
     () => () => {
       disableVlibras();
       disableSiteReader();
+      resetFontScale();
     },
     []
   );

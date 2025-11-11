@@ -8,7 +8,7 @@ export const LEVEL_ITEMS = [
     key: 'font',
     label: 'Aumentar fonte',
     icon: 'fa-text-height',
-    descriptions: ['100%', '150%', '200%'],
+    descriptions: ['100%', '125%', '150%', '175%', '200%'],
   },
   {
     key: 'contrast',
