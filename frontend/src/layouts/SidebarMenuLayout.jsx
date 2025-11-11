@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 import SidebarMenu from '../components/SidebarMenu';
 import Header from '../components/Header';
+import FloatingAccessibilityButton from '../components/FloatingAccessibilityButton';
 import useMediaQuery from '../hooks/useMediaQuery';
 
 /**
@@ -168,8 +169,8 @@ function SidebarMenuLayout({ userRole = "user", user = { name: "Usuário", avata
                 ? () => navigate('/climb') 
                 : undefined
           }
-          onAccessibilityClick={() => console.log('Acessibilidade')}
         />
+        <FloatingAccessibilityButton onClick={() => console.log('Acessibilidade')} />
         <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden">
           <Outlet />
         </div>

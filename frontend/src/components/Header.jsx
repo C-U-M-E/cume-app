@@ -10,7 +10,6 @@ import useMediaQuery from '../hooks/useMediaQuery';
  * @param {string} props.pageTitle - Título da página (usado em forPages e forPages2)
  * @param {Function} props.onHamburgerClick - Callback ao clicar no botão hambúrguer
  * @param {Function} props.onBackClick - Callback ao clicar no botão de voltar (forPages2)
- * @param {Function} props.onAccessibilityClick - Callback ao clicar no botão de acessibilidade
  * @param {string} props.className - Classes adicionais do Tailwind
  */
 const Header = ({
@@ -18,7 +17,6 @@ const Header = ({
   pageTitle,
   onHamburgerClick,
   onBackClick,
-  onAccessibilityClick,
   className = ''
 }) => {
   const location = useLocation();
@@ -34,16 +32,6 @@ const Header = ({
       className="bg-brown-50 flex items-center justify-center rounded-16 shrink-0 size-56 hover:bg-brown-100 transition-colors"
     >
       <i className="fas fa-bars text-brown-900 text-[20px]" />
-    </button>
-  );
-
-  // Botão de Acessibilidade
-  const ButtonAccessibility = () => (
-    <button
-      onClick={onAccessibilityClick}
-      className="bg-brown-50 flex items-center justify-center rounded-16 shrink-0 size-56 hover:bg-brown-100 transition-colors"
-    >
-      <i className="fas fa-universal-access text-brown-900 text-[24px]" />
     </button>
   );
 
@@ -81,8 +69,7 @@ const Header = ({
           </p>
         </div>
         {!isDesktop && (
-          <div className="flex gap-12 items-center shrink-0">
-            <ButtonAccessibility />
+          <div className="flex items-center shrink-0">
             <ButtonHamburger />
           </div>
         )}
@@ -99,8 +86,7 @@ const Header = ({
         </p>
       </div>
       {!isDesktop && (
-        <div className="flex gap-12 items-center shrink-0">
-          <ButtonAccessibility />
+        <div className="flex items-center shrink-0">
           <ButtonHamburger />
         </div>
       )}
