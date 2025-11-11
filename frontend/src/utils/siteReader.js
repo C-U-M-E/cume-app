@@ -2,13 +2,43 @@ const CHUNK_CHAR_LIMIT = 400;
 
 const isBrowser = () => typeof window !== 'undefined' && typeof document !== 'undefined';
 
+const READABLE_ELEMENTS = [
+  '[data-site-reader-text]',
+  'article',
+  'main',
+  'section',
+  'header',
+  'footer',
+  'nav',
+  'p',
+  'li',
+  'blockquote',
+  'figcaption',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+];
+
+const READABLE_SELECTOR = READABLE_ELEMENTS.join(', ');
+const ACTIVE_CLASS = 'site-reader-highlight';
+const SPEAK_DELAY_MS = 200;
+
+const INTERACTIVE_ELEMENTS = ['a[href]', 'button', '[role="button"]', 'input', 'textarea', 'select'];
+const INTERACTIVE_SELECTOR = INTERACTIVE_ELEMENTS.join(', ');
+const INTERACTIVE_ACTION_THRESHOLD = 1200;
+
 let readerEnabled = false;
 let voicesPromise = null;
 let cachedVoice = null;
-let selectionListenerAttached = false;
-let lastSelectedText = '';
+let clickListenerAttached = false;
+let highlightStyleInjected = false;
+let activeElement = null;
 let speakTimeoutId = null;
-const SPEAK_DELAY_MS = 200;
+let lastInteractiveTarget = null;
+let lastInteractiveTimestamp = 0;
 
 const isSpeechSupported = () => {
   if (!isBrowser()) return false;
@@ -66,75 +96,36 @@ const pickVoice = (voices = []) => {
   return voices[0];
 };
 
-const getSelectedText = () => {
-  if (!isBrowser()) return '';
-  const selection = window.getSelection();
-  if (!selection) return '';
-  return selection.toString().trim();
+const ensureHighlightStyles = () => {
+  if (!isBrowser() || highlightStyleInjected) return;
+
+  const style = document.createElement('style');
+  style.id = 'site-reader-highlight-style';
+  style.textContent = `
+.${ACTIVE_CLASS} {
+  text-decoration: underline;
+  text-decoration-thickness: 0.15em;
+  text-decoration-color: currentColor;
+}
+`;
+
+  document.head.appendChild(style);
+  highlightStyleInjected = true;
 };
 
-const handleSelectionChange = () => {
-  const text = getSelectedText();
-  if (text) {
-    lastSelectedText = text;
-    if (readerEnabled) {
-      scheduleSpeak(text);
-    }
+const clearActiveHighlight = () => {
+  if (activeElement) {
+    activeElement.classList.remove(ACTIVE_CLASS);
+    activeElement = null;
   }
 };
 
-const ensureSelectionListener = () => {
-  if (!isBrowser() || selectionListenerAttached) return;
-  document.addEventListener('selectionchange', handleSelectionChange);
-  selectionListenerAttached = true;
-};
-
-const clearSpeakTimeout = () => {
-  if (speakTimeoutId) {
-    clearTimeout(speakTimeoutId);
-    speakTimeoutId = null;
-  }
-};
-
-const speakText = async (text) => {
-  if (!text) return;
-
-  const voices = await waitForVoices();
-  cachedVoice = cachedVoice || pickVoice(voices);
-
-  const utterances = buildUtterances(cachedVoice, text);
-
-  if (utterances.length === 0) {
-    return;
-  }
-
-  utterances.forEach((utterance) => {
-    utterance.onerror = (event) => {
-      // eslint-disable-next-line no-console
-      console.error('Erro ao reproduzir leitura:', event.error);
-    };
-
-    window.speechSynthesis.speak(utterance);
-  });
-};
-
-const scheduleSpeak = (text) => {
-  clearSpeakTimeout();
-
-  if (!text) {
-    return;
-  }
-
-  speakTimeoutId = setTimeout(async () => {
-    speakTimeoutId = null;
-    cancelSpeech();
-    try {
-      await speakText(text);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('Erro ao iniciar leitura da seleção:', error);
-    }
-  }, SPEAK_DELAY_MS);
+const highlightElement = (element) => {
+  if (!element) return;
+  if (element === activeElement) return;
+  clearActiveHighlight();
+  element.classList.add(ACTIVE_CLASS);
+  activeElement = element;
 };
 
 const splitTextIntoChunks = (text) => {
@@ -181,6 +172,46 @@ const buildUtterances = (voice, text) => {
   });
 };
 
+const clearSpeakTimeout = () => {
+  if (speakTimeoutId) {
+    clearTimeout(speakTimeoutId);
+    speakTimeoutId = null;
+  }
+};
+
+const speakText = async (text, { onComplete } = {}) => {
+  if (!text) return;
+
+  const voices = await waitForVoices();
+  cachedVoice = cachedVoice || pickVoice(voices);
+
+  const utterances = buildUtterances(cachedVoice, text);
+
+  if (utterances.length === 0) {
+    return;
+  }
+
+  await new Promise((resolve) => {
+    utterances.forEach((utterance, index) => {
+      utterance.onerror = (event) => {
+        // eslint-disable-next-line no-console
+        console.error('Erro ao reproduzir leitura:', event.error);
+        onComplete?.();
+        resolve();
+      };
+
+      utterance.onend = () => {
+        if (index === utterances.length - 1) {
+          onComplete?.();
+          resolve();
+        }
+      };
+
+      window.speechSynthesis.speak(utterance);
+    });
+  });
+};
+
 const cancelSpeech = () => {
   if (!isBrowser() || !isSpeechSupported()) return;
   try {
@@ -189,6 +220,89 @@ const cancelSpeech = () => {
     // eslint-disable-next-line no-console
     console.error('Falha ao cancelar a leitura:', error);
   }
+};
+
+const scheduleSpeak = (text, element) => {
+  clearSpeakTimeout();
+
+  if (!text) {
+    return;
+  }
+
+  speakTimeoutId = setTimeout(async () => {
+    speakTimeoutId = null;
+    cancelSpeech();
+    try {
+      await speakText(text, {
+        onComplete: () => {
+          if (element === activeElement) {
+            clearActiveHighlight();
+          }
+        },
+      });
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Erro ao iniciar leitura do conteúdo selecionado:', error);
+      if (element === activeElement) {
+        clearActiveHighlight();
+      }
+    }
+  }, SPEAK_DELAY_MS);
+};
+
+const handleReadableClick = (event) => {
+  if (!readerEnabled) return;
+  const target = event.target?.closest(READABLE_SELECTOR);
+  if (!target) return;
+
+  const text = target.innerText?.trim();
+  if (!text) {
+    return;
+  }
+
+  const interactive = event.target.closest(INTERACTIVE_SELECTOR);
+  if (interactive) {
+    if (shouldAllowInteractiveAction(interactive)) {
+      clearActiveHighlight();
+      cancelSpeech();
+      return;
+    }
+
+    event.preventDefault();
+  }
+
+  highlightElement(target);
+  scheduleSpeak(text, target);
+};
+
+const handleInteractiveClick = (event) => {
+  if (!readerEnabled) return;
+  const target = event.target?.closest(INTERACTIVE_SELECTOR);
+  if (!target) return;
+
+  if (shouldAllowInteractiveAction(target)) {
+    return;
+  }
+
+  const text = target.innerText?.trim();
+  if (!text) {
+    return;
+  }
+
+  highlightElement(target);
+  scheduleSpeak(text, target);
+};
+
+const ensureClickListener = () => {
+  if (!isBrowser() || clickListenerAttached) return;
+  document.addEventListener('click', handleReadableClick, true);
+  clickListenerAttached = true;
+};
+
+const removeClickListener = () => {
+  if (!isBrowser() || !clickListenerAttached) return;
+  document.removeEventListener('click', handleReadableClick, true);
+  clickListenerAttached = false;
 };
 
 export const enableSiteReader = async () => {
@@ -200,30 +314,20 @@ export const enableSiteReader = async () => {
     return;
   }
 
-  ensureSelectionListener();
-
   if (readerEnabled) {
     return;
   }
 
   readerEnabled = true;
-
+  ensureHighlightStyles();
+  ensureClickListener();
   cancelSpeech();
 
   try {
-    await speakText('Selecione o texto para ser lido');
+    await speakText('Clique em um conteúdo para ouvir a leitura. Em botões ou links, clique novamente para ativar a ação.');
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Erro ao reproduzir instrução inicial do leitor:', error);
-  }
-
-  const currentSelection = getSelectedText();
-  if (currentSelection) {
-    lastSelectedText = currentSelection;
-  }
-
-  if (lastSelectedText) {
-    scheduleSpeak(lastSelectedText);
   }
 };
 
@@ -232,6 +336,10 @@ export const disableSiteReader = () => {
   readerEnabled = false;
   clearSpeakTimeout();
   cancelSpeech();
+  clearActiveHighlight();
+  removeClickListener();
+  lastInteractiveTarget = null;
+  lastInteractiveTimestamp = 0;
 };
 
 export const isSiteReaderEnabled = () => readerEnabled;
