@@ -1,30 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-
-const TOGGLE_ITEMS = [
-  { key: 'vlibras', label: 'VLibras', icon: 'fa-sign-language' },
-  { key: 'reader', label: 'Site reader', icon: 'fa-headphones' },
-];
-
-const LEVEL_ITEMS = [
-  {
-    key: 'font',
-    label: 'Aumentar fonte',
-    icon: 'fa-text-height',
-    descriptions: ['100%', '150%', '200%'],
-  },
-  {
-    key: 'contrast',
-    label: 'Contraste da página',
-    icon: 'fa-adjust',
-    descriptions: ['Normal', 'Alto contraste'],
-  },
-  {
-    key: 'typeface',
-    label: 'Mudar fonte',
-    icon: 'fa-font',
-    descriptions: ['Fonte normal', 'Leitura', 'Disléxico'],
-  },
-];
+import React, { useEffect, useRef } from 'react';
+import { LEVEL_ITEMS, TOGGLE_ITEMS } from '../constants/accessibility';
 
 const ToggleOptionButton = ({ label, icon, active, onClick }) => (
   <button
@@ -78,31 +53,19 @@ const LevelOptionButton = ({ label, icon, level, maxLevel, description, onClick 
   </button>
 );
 
-const AccessibilityOptionsPanel = ({ isDesktop = true, onClose }) => {
+const AccessibilityOptionsPanel = ({
+  isDesktop = true,
+  onClose,
+  toggleStates,
+  onToggleChange,
+  levelStates,
+  onLevelChange,
+}) => {
   const panelRef = useRef(null);
-  const [toggleStates, setToggleStates] = useState(() =>
-    TOGGLE_ITEMS.reduce(
-      (acc, item) => ({
-        ...acc,
-        [item.key]: false,
-      }),
-      {}
-    )
-  );
-
-  const [levelStates, setLevelStates] = useState(() =>
-    LEVEL_ITEMS.reduce(
-      (acc, item) => ({
-        ...acc,
-        [item.key]: 0,
-      }),
-      {}
-    )
-  );
 
   const positionClasses = isDesktop
     ? 'right-56 top-1/2 -translate-y-1/2'
-    : 'right-4 bottom-[180px]';
+    : 'right-56 top-1/2 -translate-y-1/2';
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -116,20 +79,17 @@ const AccessibilityOptionsPanel = ({ isDesktop = true, onClose }) => {
   }, [onClose]);
 
   const handleToggle = (key) => {
-    setToggleStates((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
+    const nextValue = !toggleStates?.[key];
+    onToggleChange?.(key, nextValue);
   };
 
   const handleLevelChange = (key) => {
     const item = LEVEL_ITEMS.find((config) => config.key === key);
     const maxLevel = item ? item.descriptions.length : 1;
 
-    setLevelStates((prev) => ({
-      ...prev,
-      [key]: prev[key] + 1 >= maxLevel ? 0 : prev[key] + 1,
-    }));
+    const currentLevel = levelStates?.[key] ?? 0;
+    const nextLevel = currentLevel + 1 >= maxLevel ? 0 : currentLevel + 1;
+    onLevelChange?.(key, nextLevel);
   };
 
   return (
@@ -159,7 +119,7 @@ const AccessibilityOptionsPanel = ({ isDesktop = true, onClose }) => {
             key={key}
             label={label}
             icon={icon}
-            active={toggleStates[key]}
+            active={!!toggleStates?.[key]}
             onClick={() => handleToggle(key)}
           />
         ))}
@@ -172,9 +132,9 @@ const AccessibilityOptionsPanel = ({ isDesktop = true, onClose }) => {
             key={key}
             label={label}
             icon={icon}
-            level={levelStates[key]}
+            level={levelStates?.[key] ?? 0}
             maxLevel={descriptions.length}
-            description={descriptions[levelStates[key]]}
+            description={descriptions[levelStates?.[key] ?? 0]}
             onClick={() => handleLevelChange(key)}
           />
         ))}

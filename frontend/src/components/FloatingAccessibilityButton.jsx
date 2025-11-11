@@ -1,7 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useMediaQuery from '../hooks/useMediaQuery';
 import accessibilityIcon from '../assets/images/acessibility-icon.svg';
 import AccessibilityOptionsPanel from './AccessibilityOptionsPanel';
+import { LEVEL_ITEMS, TOGGLE_ITEMS } from '../constants/accessibility';
+import { disableVlibras, enableVlibras } from '../utils/vlibras';
+
+const buildInitialToggleState = () =>
+  TOGGLE_ITEMS.reduce(
+    (acc, item) => ({
+      ...acc,
+      [item.key]: false,
+    }),
+    {}
+  );
+
+const buildInitialLevelState = () =>
+  LEVEL_ITEMS.reduce(
+    (acc, item) => ({
+      ...acc,
+      [item.key]: 0,
+    }),
+    {}
+  );
 
 /**
  * Botão flutuante de acessibilidade fixado à direita da tela
@@ -14,10 +34,12 @@ import AccessibilityOptionsPanel from './AccessibilityOptionsPanel';
 const FloatingAccessibilityButton = ({ onClick, className = '' }) => {
   const isDesktop = useMediaQuery(1024);
   const [isOpen, setIsOpen] = useState(false);
+  const [toggleStates, setToggleStates] = useState(buildInitialToggleState);
+  const [levelStates, setLevelStates] = useState(buildInitialLevelState);
 
   const positionClasses = isDesktop
-    ? 'top-1/2 -translate-y-1/2 right-16'
-    : 'bottom-80 right-4';
+    ? 'top-[53%] right-[10px]'
+    : 'top-[53%] right-[10px]';
 
   const handleButtonClick = () => {
     setIsOpen((prev) => !prev);
@@ -28,12 +50,45 @@ const FloatingAccessibilityButton = ({ onClick, className = '' }) => {
     setIsOpen(false);
   };
 
+  const handleToggleChange = (key, value) => {
+    setToggleStates((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  const handleLevelChange = (key, value) => {
+    setLevelStates((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  useEffect(() => {
+    if (toggleStates.vlibras) {
+      enableVlibras();
+    } else {
+      disableVlibras();
+    }
+  }, [toggleStates.vlibras]);
+
+  useEffect(
+    () => () => {
+      disableVlibras();
+    },
+    []
+  );
+
   return (
     <>
       {isOpen && (
         <AccessibilityOptionsPanel
           isDesktop={isDesktop}
           onClose={handleClose}
+          toggleStates={toggleStates}
+          onToggleChange={handleToggleChange}
+          levelStates={levelStates}
+          onLevelChange={handleLevelChange}
         />
       )}
       <button
