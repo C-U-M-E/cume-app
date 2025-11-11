@@ -6,6 +6,7 @@ import { LEVEL_ITEMS, TOGGLE_ITEMS } from '../constants/accessibility';
 import { disableVlibras, enableVlibras } from '../utils/vlibras';
 import { disableSiteReader, enableSiteReader } from '../utils/siteReader';
 import { applyFontScale, resetFontScale } from '../utils/fontScaler';
+import { applyTypeface, resetTypeface } from '../utils/typefaceManager';
 
 const buildInitialToggleState = () =>
   TOGGLE_ITEMS.reduce(
@@ -86,11 +87,16 @@ const FloatingAccessibilityButton = ({ onClick, className = '' }) => {
     applyFontScale(levelStates.font ?? 0);
   }, [levelStates.font]);
 
+  useEffect(() => {
+    applyTypeface(levelStates.typeface ?? 0);
+  }, [levelStates.typeface]);
+
   useEffect(
     () => () => {
       disableVlibras();
       disableSiteReader();
       resetFontScale();
+      resetTypeface();
     },
     []
   );
