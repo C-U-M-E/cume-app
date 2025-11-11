@@ -4,6 +4,7 @@ import accessibilityIcon from '../assets/images/acessibility-icon.svg';
 import AccessibilityOptionsPanel from './AccessibilityOptionsPanel';
 import { LEVEL_ITEMS, TOGGLE_ITEMS } from '../constants/accessibility';
 import { disableVlibras, enableVlibras } from '../utils/vlibras';
+import { disableSiteReader, enableSiteReader } from '../utils/siteReader';
 
 const buildInitialToggleState = () =>
   TOGGLE_ITEMS.reduce(
@@ -72,9 +73,18 @@ const FloatingAccessibilityButton = ({ onClick, className = '' }) => {
     }
   }, [toggleStates.vlibras]);
 
+  useEffect(() => {
+    if (toggleStates.reader) {
+      enableSiteReader();
+    } else {
+      disableSiteReader();
+    }
+  }, [toggleStates.reader]);
+
   useEffect(
     () => () => {
       disableVlibras();
+      disableSiteReader();
     },
     []
   );
