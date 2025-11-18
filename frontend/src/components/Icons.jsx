@@ -93,7 +93,7 @@ const Icons = ({
       >
         <img 
           src={img} 
-          alt=""
+          alt="Imagem que representa a opção demonstrada"
           className="w-full h-full object-cover"
         />
       </div>

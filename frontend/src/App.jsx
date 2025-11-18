@@ -28,7 +28,7 @@ function App() {
   const userRole = "user"; // "user", "member", "admin"
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/cume-app">
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
