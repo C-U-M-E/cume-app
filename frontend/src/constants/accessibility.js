@@ -11,12 +11,6 @@ export const LEVEL_ITEMS = [
     descriptions: ['100%', '125%', '150%', '175%', '200%'],
   },
   {
-    key: 'contrast',
-    label: 'Contraste da página',
-    icon: 'fa-adjust',
-    descriptions: ['Normal', 'Alto contraste'],
-  },
-  {
     key: 'typeface',
     label: 'Mudar fonte',
     icon: 'fa-font',

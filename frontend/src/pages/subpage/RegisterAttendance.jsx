@@ -40,7 +40,7 @@ function RegisterAttendance() {
             <div className="h-[105px] relative shrink-0 w-[91.765px]">
               <img 
                 src={viaVector} 
-                alt="Via" 
+                alt="Imagem vetorial de uma via de escalada" 
                 className="block max-w-none size-full"
               />
             </div>
@@ -50,7 +50,7 @@ function RegisterAttendance() {
           <div className="aspect-square relative shrink-0 w-full">
             <img 
               src={qrCodeUrl} 
-              alt="QR Code" 
+              alt="Imagem de um QR Code aleatório para a página de registrar presença" 
               className="block max-w-none size-full opacity-80"
             />
           </div>
@@ -68,7 +68,7 @@ function RegisterAttendance() {
         <div className="h-[256px] relative shrink-0 w-[240px]">
           <img 
             src={confirmationVector} 
-            alt="Confirmação"
+            alt="Imagem de confirmação em relação a ação anterior realizada pelo usuário"
             className="block max-w-none size-full"
           />
         </div>

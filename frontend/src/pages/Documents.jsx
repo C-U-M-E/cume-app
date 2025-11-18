@@ -28,7 +28,7 @@ function Documents() {
             <div className="h-[127px] relative shrink-0 w-[130px]">
               <img 
                 src={docsVector} 
-                alt="Carteirinha" 
+                alt="Imagem vetorial de uma carteirinha" 
                 className="block max-w-none size-full"
               />
             </div>
