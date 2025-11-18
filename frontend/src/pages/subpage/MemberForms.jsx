@@ -16,7 +16,7 @@ function MemberForms() {
         <div className="h-[331px] relative shrink-0 w-[275px]">
           <img 
             src={emptyStateTerms} 
-            alt="Formulário de associado"
+            alt="Imagem vetorial de um formulário para a página de formulário de associado"
             className="block max-w-none size-full"
           />
         </div>

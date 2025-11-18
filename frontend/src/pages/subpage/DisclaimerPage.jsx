@@ -16,7 +16,7 @@ function DisclaimerPage() {
         <div className="h-[331px] relative shrink-0 w-[275px]">
           <img 
             src={emptyStateTerms} 
-            alt="Termo de responsabilidade"
+            alt="Imagem vetorial de um termo de responsabilidade"
             className="block max-w-none size-full"
           />
         </div>

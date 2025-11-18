@@ -27,7 +27,7 @@ function Climb() {
             <div className="h-[134px] relative shrink-0 w-[103px]">
               <img 
                 src={climbVector} 
-                alt="Escalada" 
+                alt="Imagem vetorial de uma pessoa escalando em uma caixa da água grande" 
                 className="block max-w-none size-full"
               />
             </div>

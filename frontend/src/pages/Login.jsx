@@ -132,11 +132,11 @@ function Login() {
           <div className="relative size-[120px] rounded-full bg-brown-900 shadow-[0px_16px_32px_rgba(62,39,35,0.2)] overflow-hidden">
             <img
               src={logoImage}
-              alt="Logo CUME"
+              alt="Logo do CUME - Centro Universitário de Montanhismo e Excursionismo"
               className="absolute inset-0 size-full object-cover"
             />
           </div>
-          <img src={logoText} alt="CUME" className="h-[20px] w-auto" />
+          <img src={logoText} alt="CUME - Centro Universitário de Montanhismo e Excursionismo" className="h-[20px] w-auto" />
         </div>
 
         <form className="flex w-full flex-col gap-24" onSubmit={handleSubmit} noValidate>

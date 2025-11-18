@@ -16,7 +16,7 @@ function PhotoDocuments() {
         <div className="h-[331px] relative shrink-0 w-[275px]">
           <img 
             src={emptyStateDocs} 
-            alt="Documento com fotos"
+            alt="Imagem vetorial de um documento com fotos"
             className="block max-w-none size-full"
           />
         </div>

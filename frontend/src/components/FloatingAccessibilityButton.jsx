@@ -126,7 +126,7 @@ const FloatingAccessibilityButton = ({ onClick, className = '' }) => {
         className={`fixed z-50 flex items-center justify-center rounded-8 shadow-[0_12px_24px_rgba(0,0,0,0.15)] bg-blue-700 text-white size-40 hover:bg-blue-800 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200 transition-colors ${positionClasses} ${className}`}
       >
         <span className="sr-only">Acessibilidade</span>
-        <img src={accessibilityIcon} alt="" aria-hidden="true" className="h-40 w-40" />
+        <img src={accessibilityIcon} alt="Ícone do botão de acessibilidade" aria-hidden="true" className="h-40 w-40" />
       </button>
     </>
   );
