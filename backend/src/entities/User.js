@@ -2,15 +2,15 @@ const { EntitySchema } = require("typeorm");
 
 module.exports = new EntitySchema({
     name: "User",
-    tableName: "usuarios",
+    tableName: "users",
     columns: {
         id: {
             primary: true,
             type: "uuid",
             generated: "uuid",
-            name: "id_usuario"
+            name: "id"
         },
-        nome: {
+        name: {
             type: "varchar",
             length: 150
         },
@@ -18,12 +18,12 @@ module.exports = new EntitySchema({
             type: "varchar",
             unique: true
         },
-        senha: {
+        password: { 
             type: "varchar"
         },
-        dataNascimento: {
+        birthDate: { 
             type: "date",
-            name: "data_nascimento"
+            name: "birth_date"
         },
         rg: {
             type: "varchar",
@@ -36,27 +36,27 @@ module.exports = new EntitySchema({
             unique: true
         },
 
-        tipoUsuario: {
+        userType: { 
             type: "enum",
-            enum: ["padrao", "admin"], 
-            default: "padrao",
-            name: "tipo_usuario"
+            enum: ["standard", "admin"], 
+            default: "standard",
+            name: "user_type"
         },
 
-        statusCadastro: {
+        registrationStatus: { 
             type: "enum",
-            enum: ["pendente", "ativo", "bloqueado"],
-            default: "pendente",
-            name: "status_cadastro"
+            enum: ["pending", "active", "blocked"], 
+            default: "pending",
+            name: "registration_status"
         },
 
-        statusAssociado: {
+        associateStatus: { 
             type: "varchar", 
             nullable: true,
-            name: "status_cadastro_associado" 
+            name: "associate_status" 
         },
 
-        // --- Audit (TODO: criar um esquema de auditoria) ---
+        // --- Audit ---
         createdAt: {
             createDate: true,
             name: "created_at"

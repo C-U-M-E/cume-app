@@ -1,7 +1,7 @@
 require("reflect-metadata");
 const express = require("express");
 const cors = require("cors");
-const { AppDataSource } = require("./config/data-source");
+const { AppDataSource } = require("./config/data-source"); 
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
 });
 
 AppDataSource.initialize()
-    .then(() => {        
+    .then(() => {
         app.listen(3000, () => {
             console.log("Servidor rodando na porta 3000");
         });
