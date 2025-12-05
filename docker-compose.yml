@@ -2,12 +2,12 @@ version: '3.9'
 services:
   db:
     image: postgres:15
-    container_name: monitoria-db
+    container_name: cume-db
     restart: always
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
-      POSTGRES_DB: monitoria
+      POSTGRES_DB: cume
     ports:
       - "5432:5432"
     volumes:

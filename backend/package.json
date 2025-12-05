@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "migration:generate": "npx typeorm-ts-node-commonjs migration:generate -d src/config/data-source.js",
+    "migration:run": "npx typeorm-ts-node-commonjs migration:run -d src/config/data-source.js",
+    "migration:revert": "npx typeorm-ts-node-commonjs migration:revert -d src/config/data-source.js"
+  },
+  "keywords": [],
+  "author": "Cume-app",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "pg": "^8.16.3",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.28"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11",
+    "typeorm-ts-node-commonjs": "^0.3.20"
+  }
+}
