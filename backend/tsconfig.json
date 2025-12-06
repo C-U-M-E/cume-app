@@ -7,7 +7,8 @@
     "strict": false,               
     "emitDecoratorMetadata": true, 
     "experimentalDecorators": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
   },
   "include": ["src/**/*"],
 }
