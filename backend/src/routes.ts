@@ -1,11 +1,16 @@
+import multer from "multer";
 import { Router } from "express";
 import { UserController } from "./controllers/UserController";
 import { authMiddleware } from "./middlewares/authMiddleware";
 import { UserCardController } from "./controllers/UserCardController";
+import { DocumentController } from "./controllers/DocumentController";
+import { multerConfig } from "./config/multer";
 
 const routes = Router();
 const userController = new UserController();
 const userCardController = new UserCardController(); 
+const upload = multer(multerConfig);
+const docController = new DocumentController();
 
 /**
  * @swagger
@@ -104,4 +109,40 @@ routes.get("/users", authMiddleware, (req, res) => userController.list(req, res)
  */
 routes.get("/membership-card", authMiddleware, (req, res) => userCardController.getMyCard(req, res));
 
+/**
+ * @swagger
+ * /documents/upload:
+ * post:
+ * summary: Upload documents for term signature
+ * tags: [Documents]
+ * security:
+ * - bearerAuth: []
+ * requestBody:
+ * content:
+ * multipart/form-data:
+ * schema:
+ * type: object
+ * properties:
+ * document:
+ * type: string
+ * format: binary
+ * photo:
+ * type: string
+ * format: binary
+ * responses:
+ * 201:
+ * description: Upload successful
+ * 400:
+ * description: Missing files
+ */
+routes.post(
+    "/documents/upload", 
+    authMiddleware, 
+    upload.fields([
+        { name: 'document', maxCount: 1 },
+        { name: 'photo', maxCount: 1 },
+        { name: 'identity_document', maxCount: 1 }
+    ]), 
+    (req, res) => docController.uploadDocuments(req, res)
+);
 export default routes;

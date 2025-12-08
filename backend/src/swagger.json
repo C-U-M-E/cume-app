@@ -158,6 +158,45 @@
           "401": { "description": "Credenciais inválidas" }
         }
       }
+    },
+    "/documents/upload": {
+      "post": {
+        "summary": "Upload de documentos para assinatura do termo",
+        "tags": ["Documents"],
+        "security": [ { "bearerAuth": [] } ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "document": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Arquivo do Termo Assinado (PDF)"
+                  },
+                  "photo": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Foto de Perfil / Avatar (Imagem)"
+                  },
+                  "identity_document": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Foto do RG ou CNH (Imagem)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Documentos enviados com sucesso" },
+          "400": { "description": "Arquivos ausentes" },
+          "401": { "description": "Não autorizado" }
+        }
+      }
     }
   }
 }
