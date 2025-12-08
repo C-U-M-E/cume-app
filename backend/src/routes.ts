@@ -109,11 +109,78 @@ routes.get("/users", authMiddleware, (req, res) => userController.list(req, res)
  */
 routes.get("/membership-card", authMiddleware, (req, res) => userCardController.getMyCard(req, res));
 
+
 /**
  * @swagger
- * /documents/upload:
+ * /users/identity-doc:
  * post:
- * summary: Upload documents for term signature
+ * summary: Upload do documento de identidade (RG/CNH)
+ * tags: [Users]
+ * security:
+ * - bearerAuth: []
+ * requestBody:
+ * content:
+ * multipart/form-data:
+ * schema:
+ * type: object
+ * properties:
+ * file:
+ * type: string
+ * format: binary
+ * description: Imagem do RG ou CNH
+ * responses:
+ * 200:
+ * description: Documento salvo com sucesso
+ * 400:
+ * description: Arquivo inválido ou ausente
+ * 401:
+ * description: Não autorizado
+ */
+routes.post(
+    "/users/identity-doc", 
+    authMiddleware, 
+    upload.single('file'), 
+    (req, res) => docController.uploadIdentity(req, res)
+);
+
+/**
+ * @swagger
+ * /users/profile-photo:
+ * post:
+ * summary: Upload da foto de perfil (Avatar)
+ * tags: [Users]
+ * security:
+ * - bearerAuth: []
+ * requestBody:
+ * content:
+ * multipart/form-data:
+ * schema:
+ * type: object
+ * properties:
+ * file:
+ * type: string
+ * format: binary
+ * description: Foto de perfil (3x4)
+ * responses:
+ * 200:
+ * description: Foto salva com sucesso
+ * 400:
+ * description: Arquivo inválido ou ausente
+ * 401:
+ * description: Não autorizado
+ */
+routes.post(
+    "/users/profile-photo", 
+    authMiddleware, 
+    upload.single('file'), 
+    (req, res) => docController.uploadProfilePhoto(req, res)
+);
+
+/**
+ * @swagger
+ * /documents/sign-term:
+ * post:
+ * summary: Assinar termo de responsabilidade (Envia PDF e Ativa Usuário)
  * tags: [Documents]
  * security:
  * - bearerAuth: []
@@ -123,26 +190,23 @@ routes.get("/membership-card", authMiddleware, (req, res) => userCardController.
  * schema:
  * type: object
  * properties:
- * document:
+ * file:
  * type: string
  * format: binary
- * photo:
- * type: string
- * format: binary
+ * description: PDF do termo assinado
  * responses:
  * 201:
- * description: Upload successful
+ * description: Termo assinado e usuário ativado
  * 400:
- * description: Missing files
+ * description: Documentos pendentes (Foto/RG) ou arquivo ausente
+ * 401:
+ * description: Não autorizado
  */
 routes.post(
-    "/documents/upload", 
+    "/documents/sign-term", 
     authMiddleware, 
-    upload.fields([
-        { name: 'document', maxCount: 1 },
-        { name: 'photo', maxCount: 1 },
-        { name: 'identity_document', maxCount: 1 }
-    ]), 
-    (req, res) => docController.uploadDocuments(req, res)
+    upload.single('file'), 
+    (req, res) => docController.signTerm(req, res)
 );
+
 export default routes;

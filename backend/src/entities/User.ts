@@ -50,6 +50,12 @@ export class User {
     })
     registrationStatus: RegistrationStatus;
 
+    @Column({ name: "profile_photo_url", nullable: true })
+    profilePhotoUrl: string;
+
+    @Column({ name: "identity_document_url", nullable: true })
+    identityDocumentUrl: string;
+
     @Column({ name: "associate_status", nullable: true })
     associateStatus: string;
 

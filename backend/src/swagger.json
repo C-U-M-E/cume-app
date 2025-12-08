@@ -115,6 +115,90 @@
         }
       }
     },
+    "/users/identity-doc": {
+      "post": {
+        "summary": "Upload do documento de identidade (RG/CNH)",
+        "tags": ["Users"],
+        "security": [ { "bearerAuth": [] } ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Imagem do RG ou CNH"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Documento salvo com sucesso" },
+          "400": { "description": "Arquivo inválido ou ausente" },
+          "401": { "description": "Não autorizado" }
+        }
+      }
+    },
+    "/users/profile-photo": {
+      "post": {
+        "summary": "Upload da foto de perfil (Avatar)",
+        "tags": ["Users"],
+        "security": [ { "bearerAuth": [] } ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Foto de perfil (3x4)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Foto salva com sucesso" },
+          "400": { "description": "Arquivo inválido ou ausente" },
+          "401": { "description": "Não autorizado" }
+        }
+      }
+    },
+    "/documents/sign-term": {
+      "post": {
+        "summary": "Assinar termo de responsabilidade (Envia PDF e Ativa Usuário)",
+        "tags": ["Documents"],
+        "security": [ { "bearerAuth": [] } ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "PDF do termo assinado"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Termo assinado e usuário ativado" },
+          "400": { "description": "Documentos pendentes (Foto/RG) ou arquivo ausente" },
+          "401": { "description": "Não autorizado" }
+        }
+      }
+    },
     "/membership-card": {
       "get": {
         "summary": "Visualizar carteirinha do usuário logado",
@@ -156,45 +240,6 @@
             }
           },
           "401": { "description": "Credenciais inválidas" }
-        }
-      }
-    },
-    "/documents/upload": {
-      "post": {
-        "summary": "Upload de documentos para assinatura do termo",
-        "tags": ["Documents"],
-        "security": [ { "bearerAuth": [] } ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "document": {
-                    "type": "string",
-                    "format": "binary",
-                    "description": "Arquivo do Termo Assinado (PDF)"
-                  },
-                  "photo": {
-                    "type": "string",
-                    "format": "binary",
-                    "description": "Foto de Perfil / Avatar (Imagem)"
-                  },
-                  "identity_document": {
-                    "type": "string",
-                    "format": "binary",
-                    "description": "Foto do RG ou CNH (Imagem)"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": { "description": "Documentos enviados com sucesso" },
-          "400": { "description": "Arquivos ausentes" },
-          "401": { "description": "Não autorizado" }
         }
       }
     }

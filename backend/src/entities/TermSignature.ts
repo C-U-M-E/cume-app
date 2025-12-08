@@ -13,14 +13,8 @@ export class TermSignature {
     @Column({ name: "expiration_date" })
     expirationDate: Date; // Critical date (Signature + 6 months)
 
-    @Column({ name: "document_url", nullable: true })
-    documentUrl: string; 
-
-    @Column({ name: "photo_url", nullable: true })
-    photoUrl: string;
-
-    @Column({ name: "identity_document_url", nullable: true })
-    identityDocumentUrl: string; // Foto do RG ou CNH
+    @Column({ name: "term_document_url" }) 
+    termDocumentUrl: string;
 
     // Relationships
     @ManyToOne(() => User)
