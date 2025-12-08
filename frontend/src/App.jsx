@@ -1,4 +1,7 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useContext } from 'react'; 
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'; 
+import { AuthProvider, AuthContext } from './contexts/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
 import SidebarMenuLayout from './layouts/SidebarMenuLayout';
 import HomePage from './pages/HomePage';
 import Climb from './pages/Climb';
@@ -17,23 +20,36 @@ import MemberForms from './pages/subpage/MemberForms';
 import QueueClimb from './pages/subpage/QueueClimb';
 import RegisterAttendance from './pages/subpage/RegisterAttendance';
 
-function App() {
-  // Mock do usuário - em produção viria de um contexto/auth
-  const user = {
-    name: "Gabriel Filho",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
-  };
 
-  // Mock do role - em produção viria de um contexto/auth
-  const userRole = "user"; // "user", "member", "admin"
+// Componente auxiliar para passar os dados do contexto para o Layout
+const LayoutWithAuth = () => {
+  const { user } = useContext(AuthContext);
+  
+  // Mapeia o userType do banco (standard/admin) para as roles do front
+  // Se o backend enviar "admin", usa admin, senão usa "user"
+  const userRole = user?.userType === 'admin' ? 'admin' : 'user';
+
+  return <SidebarMenuLayout userRole={userRole} user={user} />;
+};
+
+function App() {
 
   return (
+    <AuthProvider>
     <BrowserRouter basename="/cume-app">
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/" element={<SidebarMenuLayout userRole={userRole} user={user} />}>
-          //pages
+
+          {/* Rotas Protegidas (Exigem Login) */}
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <LayoutWithAuth />
+              </ProtectedRoute>
+            }
+          >
           <Route index element={<HomePage />} />
           <Route path="climb">
             <Route index element={<Climb />} />
@@ -51,8 +67,10 @@ function App() {
           <Route path="database" element={<DataBase />} />
           <Route path="settings" element={<Settings />} />
         </Route>
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>
+    </AuthProvider>
   );
 }
 

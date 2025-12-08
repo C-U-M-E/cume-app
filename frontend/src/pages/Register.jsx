@@ -161,7 +161,7 @@ function Register() {
     }));
   };
 
-  const handleSubmit = (event) => {
+ const handleSubmit = async (event) => {
     event.preventDefault();
 
     const nameError = runValidation('name', values.name);
@@ -197,12 +197,55 @@ function Register() {
       return;
     }
 
-    setFeedback({
-      message: 'Cadastro enviado! Assim que o backend estiver pronto, iremos armazenar seus dados.',
-      tone: 'success',
-    });
-  };
+    try {
+      setFeedback({ message: 'Enviando dados...', tone: 'neutral' });
 
+      const [day, month, year] = values.birthDate.split('/');
+      const formattedDate = `${year}-${month}-${day}`;
+
+      const payload = {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        birthDate: formattedDate,
+        rg: values.rg.replace(/\D/g, ''),
+        cpf: values.cpf.replace(/\D/g, ''),
+      };
+
+      const response = await fetch('http://localhost:3000/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setFeedback({
+          message: 'Cadastro realizado com sucesso! Redirecionando...',
+          tone: 'success',
+        });
+
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000);
+      } else {
+        setFeedback({
+          message: data.error || 'Erro ao realizar cadastro.',
+          tone: 'error',
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      setFeedback({
+        message: 'Erro de conexão com o servidor.',
+        tone: 'error',
+      });
+    }
+  };
+  
   const feedbackClassName = useMemo(() => {
     if (!feedback.message) return 'text-gray-700';
     if (feedback.tone === 'error') return 'text-danger';

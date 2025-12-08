@@ -1,18 +1,20 @@
-import React, { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useMemo, useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; 
+import { AuthContext } from '../contexts/AuthContext'; 
 import Button from '../components/Button';
 import Input from '../components/Input';
 import logoImage from '../assets/images/logo-image.svg';
 import logoText from '../assets/images/cume-text-logo.svg';
 
-const DEFAULT_EMAIL = 'teste@teste.com';
-const DEFAULT_PASSWORD = 'Teste123';
-
 function Login() {
+const navigate = useNavigate();
+  const { login } = useContext(AuthContext); 
+
   const [values, setValues] = useState({
-    email: DEFAULT_EMAIL,
-    password: DEFAULT_PASSWORD,
+    email: '',
+    password: '',
   });
+
   const [errors, setErrors] = useState({
     email: '',
     password: '',
@@ -85,7 +87,8 @@ function Login() {
     }));
   };
 
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const emailError = runValidation('email', values.email);
@@ -102,17 +105,45 @@ function Login() {
       return;
     }
 
-    if (
-      values.email.trim().toLowerCase() === DEFAULT_EMAIL &&
-      values.password === DEFAULT_PASSWORD
-    ) {
-      setFeedback({
-        message: 'Login realizado com sucesso! Em breve você será redirecionado.',
-        tone: 'success',
+    try {
+      setFeedback({ message: 'Entrando...', tone: 'neutral' });
+
+      // 1. Chamada ao Backend
+      const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: values.email,
+          password: values.password,
+        }),
       });
-    } else {
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // 2. Sucesso: Backend retornou { user, token }
+        login(data.user, data.token);
+
+        setFeedback({
+          message: 'Login realizado com sucesso!',
+          tone: 'success',
+        });
+
+        // 3. Redirecionar para a Home
+        setTimeout(() => {
+          navigate('/');
+        }, 500);
+      } else {
+        // Erro (Senha errada, usuário não existe)
+        setFeedback({
+          message: data.error || 'E-mail ou senha incorretos.',
+          tone: 'error',
+        });
+      }
+    } catch (error) {
+      console.error(error);
       setFeedback({
-        message: 'Credenciais inválidas. Use o e-mail "teste@teste.com" e a senha "Teste123".',
+        message: 'Erro de conexão com o servidor.',
         tone: 'error',
       });
     }
@@ -124,7 +155,7 @@ function Login() {
     if (feedback.tone === 'success') return 'text-amber-700';
     return 'text-gray-700';
   }, [feedback]);
-
+  
   return (
     <div className="min-h-screen bg-white lg:bg-amber-50 flex items-center justify-center px-24 py-64">
       <div className="flex w-full max-w-[416px] flex-col items-center gap-56 lg:rounded-24 lg:bg-white lg:px-40 lg:py-64 lg:shadow-[0px_12px_32px_rgba(62,39,35,0.12)]">

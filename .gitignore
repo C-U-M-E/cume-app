@@ -1,0 +1,25 @@
+# Dependências do Node (O mais importante para sumir os 9k arquivos)
+node_modules/
+*/node_modules/
+
+# Variáveis de ambiente (Segurança)
+.env
+.env.local
+*.env
+.DS_Store
+
+# Builds e Distribuição
+dist/
+build/
+coverage/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Arquivos de IDE (Opcional, mas bom ter)
+.vscode/
+.idea/
