@@ -1,9 +1,11 @@
 import { Router } from "express";
 import { UserController } from "./controllers/UserController";
 import { authMiddleware } from "./middlewares/authMiddleware";
+import { UserCardController } from "./controllers/UserCardController";
 
 const routes = Router();
 const userController = new UserController();
+const userCardController = new UserCardController(); 
 
 /**
  * @swagger
@@ -79,5 +81,27 @@ routes.post("/login", (req, res) => userController.login(req, res));
  * description: Token não fornecido ou inválido
  */
 routes.get("/users", authMiddleware, (req, res) => userController.list(req, res));
+
+/**
+ * @swagger
+ * /membership-card:
+ * get:
+ * summary: Visualizar carteirinha do usuário logado
+ * tags: [Users]
+ * security:
+ * - bearerAuth: []
+ * responses:
+ * 200:
+ * description: Dados da carteirinha
+ * content:
+ * application/json:
+ * schema:
+ * $ref: '#/components/schemas/UserCard'
+ * 401:
+ * description: Não autorizado
+ * 404:
+ * description: Usuário não encontrado
+ */
+routes.get("/membership-card", authMiddleware, (req, res) => userCardController.getMyCard(req, res));
 
 export default routes;
