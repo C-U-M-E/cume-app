@@ -2,11 +2,11 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/cume-app/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CUME App</title>
     <script>
-      // Restaura a rota após redirecionamento do 404.html (GitHub Pages SPA fix)
+      // Script para redirecionar 404s para o index.html e preservar a rota
+      // Isso permite que o React Router gerencie as rotas no GitHub Pages
       (function() {
         var redirect = sessionStorage.redirect;
         delete sessionStorage.redirect;
@@ -15,11 +15,12 @@
         }
       })();
     </script>
-    <script type="module" crossorigin src="/cume-app/assets/index-BlPrDFSS.js"></script>
-    <link rel="stylesheet" crossorigin href="/cume-app/assets/index-CcMjcHGq.css">
   </head>
   <body>
-    <div id="root"></div>
+    <script>
+      // Salva a URL atual e redireciona para o index.html
+      sessionStorage.redirect = location.href;
+      location.replace('/cume-app/');
+    </script>
   </body>
 </html>
-
