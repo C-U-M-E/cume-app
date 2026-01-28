@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/cume-app/', // Base path para GitHub Pages
   server: {
     host: true, // Libera acesso externo (WSL)
     port: 3001, // Porta fixa do Front
