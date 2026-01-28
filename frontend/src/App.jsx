@@ -1,7 +1,5 @@
-import React, { useContext } from 'react'; 
+import React from 'react'; 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'; 
-import { AuthProvider, AuthContext } from './contexts/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
 import SidebarMenuLayout from './layouts/SidebarMenuLayout';
 import HomePage from './pages/HomePage';
 import Climb from './pages/Climb';
@@ -9,8 +7,6 @@ import Documents from './pages/Documents';
 import Manage from './pages/Manage';
 import DataBase from './pages/DataBase';
 import Settings from './pages/Settings';
-import Login from './pages/Login';
-import Register from './pages/Register';
 
 //Subpages
 import MiniCardPage from './pages/subpage/MiniCardPage';
@@ -20,36 +16,19 @@ import MemberForms from './pages/subpage/MemberForms';
 import QueueClimb from './pages/subpage/QueueClimb';
 import RegisterAttendance from './pages/subpage/RegisterAttendance';
 
-
-// Componente auxiliar para passar os dados do contexto para o Layout
-const LayoutWithAuth = () => {
-  const { user } = useContext(AuthContext);
-  
-  // Mapeia o userType do banco (standard/admin) para as roles do front
-  // Se o backend enviar "admin", usa admin, senão usa "user"
-  const userRole = user?.userType === 'admin' ? 'admin' : 'user';
-
-  return <SidebarMenuLayout userRole={userRole} user={user} />;
-};
-
 function App() {
+  // Mock user para demonstração sem API
+  const mockUser = {
+    name: "Usuário Demo",
+    userType: "admin",
+    avatar: null
+  };
 
   return (
-    <AuthProvider>
     <BrowserRouter basename="/cume-app">
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-
-          {/* Rotas Protegidas (Exigem Login) */}
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <LayoutWithAuth />
-              </ProtectedRoute>
-            }
-          >
+        {/* Todas as rotas agora são públicas */}
+        <Route path="/" element={<SidebarMenuLayout userRole="admin" user={mockUser} />}>
           <Route index element={<HomePage />} />
           <Route path="climb">
             <Route index element={<Climb />} />
@@ -67,10 +46,9 @@ function App() {
           <Route path="database" element={<DataBase />} />
           <Route path="settings" element={<Settings />} />
         </Route>
-        <Route path="*" element={<Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
-    </AuthProvider>
   );
 }
 
